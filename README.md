@@ -1,13 +1,4 @@
-# ng-three-template
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) and is designed as a basic
-template for [ThreeJS](https://threejs.org/) combined with [Angular](https://angular.io/)
-and [Bootstrap](https://getbootstrap.com/) in Version 4.x
-
-The project is setup to use global [SCSS](https://sass-lang.com/) only
-and [ViewEncapsulation.None](https://angular.io/api/core/ViewEncapsulation).
-
-Feel free to do anything you want with this template.
+# Unipply FE part
 
 ## Three Links
 
