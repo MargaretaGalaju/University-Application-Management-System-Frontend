@@ -1,0 +1,114 @@
+$logo-width: 150px;
+$logo-height: 150px;
+
+.login-wrapper {
+  background: linear-gradient(-216deg, #5345a0 0%, #f2d3fb 87%);
+
+  .content-wrapper {
+    background-color: white;
+    border-color: 1px solid $borders-color;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    height: 360px;
+    width: 650px;
+
+    .content-left {
+      border-right: 1px solid $borders-color;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      background-color: $primary-color-violet;
+      border-radius: 5px 0 0 5px;
+      padding-left: 0 !important;
+
+      .login-logo-bachground {
+        position: relative;
+        width: 250px;
+        border-radius: 5px 0 0 5px;
+      }
+
+      .login-logo {
+        position: absolute;
+        top: calc(50% - #{calc($logo-height/2)});
+        left: calc(50% - #{calc($logo-width/2)});
+      }
+    }
+
+    .content-right {
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .login-box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+        form {
+          // flex: 1;
+        }
+
+        button {
+          justify-content: end;
+          background-color: $primary-color-pink;
+          border-color: $primary-color-pink;
+          width: 100%;
+          justify-content: center;
+          display: flex;
+          align-self: center;
+        }
+        
+        h1 {
+          color: $primary-color-pink;
+          font-weight: bold;
+          font-size: 19px;
+          text-transform: uppercase;
+          text-align: center;
+          margin: 0 !important;
+        }
+
+        label {
+          font-size: 13px;
+          color: $labels-color;
+          margin: 0;
+        }
+
+        input {
+          font-size: 14px;
+        }
+
+        input::placeholder {
+          color: $borders-color;
+        }
+
+        .new-account {
+          color: #848587;
+          margin-top: 5px;
+          font-size: 13px;
+          width: 70%;
+          align-self: center;
+          text-align: center;
+
+          a {
+            color: $primary-color-violet;
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-group.errors {
+  margin-bottom: 0;
+
+  input {
+    border-color: $error-color;
+  }
+}
+
+div.validation-message {
+  color: $error-color;
+  font-size: 12px;
+}

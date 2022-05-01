@@ -9,6 +9,15 @@ import {UiSidebarRightComponent} from './ui/ui-sidebar-right/ui-sidebar-right.co
 import {UiComponent} from './ui/ui.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+import { SharedModule } from './shared/shared.module';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -18,17 +27,24 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     UiInfobarBottomComponent,
     UiInfobarTopComponent,
     UiSidebarLeftComponent,
-    UiSidebarRightComponent
+    UiSidebarRightComponent,
   ],
   imports: [
     BrowserModule,
+    CoreModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
+    HttpClientModule,
+    SharedModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost'],
+      },
+    }),
   ],
-  providers: [],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

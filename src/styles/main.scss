@@ -1,17 +1,13 @@
-/*****************************************************
- * node_modules imports
- *****************************************************/
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 
-/*****************************************************
- * project imports
- *****************************************************/
 @import 'variables';
 @import 'mixins';
+@import 'components/login';
 
-/*****************************************************
- * styles
- *****************************************************/
+* {
+  font-family: Quicksand;
+}
+
 html, body, app-root, app-game {
   overflow: hidden;
   width: 100%;

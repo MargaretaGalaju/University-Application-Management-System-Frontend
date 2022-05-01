@@ -1,0 +1,62 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center h-100">
+  <div class="content-wrapper row">
+      <div class="content-left col-12 col-md-5">
+          <div class="logo" data-test="logo">
+            <img class="login-logo-bachground" [src]="'assets/images/login-logo-bachground.png'" alt="unipply logo" />
+            <img class="login-logo" [src]="'assets/images/icon3/logo_transparent.png'" width="150px" height="150px" alt="unipply logo" />
+          </div>
+      </div>
+
+      <div class="content-right h-100 col-12 col-md-7">
+        <div class="login-box">
+          <h1 class="logo-name">Create new account</h1>
+          
+          <form class="m-t" [formGroup]="registerForm">
+            <div class="form-group" [ngClass]="{errors: !registerForm.get('email').pristine && !registerForm.get('email').valid}">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" placeholder="E-mail" formControlName="email" name="email">
+               
+              <ng-container *ngIf="!registerForm.get('email').pristine && registerForm.get('email').errors?.email">
+                <div class="validation-message">Invalid email</div>
+              </ng-container>
+
+              
+              <ng-container *ngIf="!registerForm.get('email').pristine && registerForm.get('email').errors?.required">
+                <div class="validation-message">Email is required</div>
+              </ng-container>
+            </div>
+
+            <div class="form-group" [ngClass]="{errors: !registerForm.get('password').pristine && !registerForm.get('password').valid}">
+              <label for="email">New Password</label>
+              <input type="password" class="form-control" placeholder="Password" formControlName="password" name="password">
+            
+              <ng-container *ngIf="!registerForm.get('password').pristine && registerForm.get('password').errors?.required">
+                <div class="validation-message">New Password is required</div>
+              </ng-container>
+            </div>
+
+            <div class="form-group" [ngClass]="{errors: !registerForm.get('confirmPassword').pristine && !registerForm.get('confirmPassword').valid}">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword" name="confirmPassword">
+              
+              <div class="errors">
+                <ng-container *ngIf="!registerForm.get('confirmPassword').pristine && registerForm.errors?.notSame">
+                  <div class="validation-message">New Password and Confirm Password should be equal</div>
+                </ng-container>
+
+                <ng-container *ngIf="!registerForm.get('confirmPassword').pristine && registerForm.get('confirmPassword').errors?.required">
+                  <div class="validation-message">Confirm Password is required</div>
+                </ng-container>
+              </div>
+            </div>
+          </form>
+
+          <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary block full-width m-b" (click)="onSubmit()">Register</button>
+          
+          <div class="new-account">
+            Already have an account? Go to <a [routerLink]="'/auth/login'">login page</a>.
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

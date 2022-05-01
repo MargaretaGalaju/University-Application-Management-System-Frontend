@@ -141,7 +141,7 @@ export class EngineService implements OnDestroy {
     this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city.glb`).pipe(first()).subscribe((gltf) => {
       const root = gltf.scene;
       this.scene.add(root)
-      console.log(dumpObject(root).join('\n'));
+      // console.log(dumpObject(root).join('\n'));
 
       const box = new THREE.Box3().setFromObject(root);
       const boxSize = box.getSize(new THREE.Vector3())

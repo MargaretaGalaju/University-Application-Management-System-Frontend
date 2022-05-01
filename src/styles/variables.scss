@@ -1,2 +1,28 @@
 $mainBgColor: rgb(255, 255, 255);
 $mainTextColor: rgb(124, 52, 52);
+
+$font-path: '/assets/fonts/SourceSansPro';
+$font-name: 'Quicksand';
+
+$font-light: Quicksand sans-serif light;
+$font-regular: Quicksand sans-serif regular;
+$font-semi-bold: Quicksand sans-serif semibold;
+$font-bold: Quicksand sans-serif bold;
+
+$hairline-weight: 100;
+$thin-weight: 200;
+$light-weight: 300;
+$regular-weight: 400;
+$medium-weight: 500;
+$semi-bold-weight: 600;
+$bold-weight: 700;
+$extra-bold-weight: 800;
+$black-weight: 900;
+
+$light-text-color: #848587;
+$primary-color-pink: #d970cd;
+$primary-color-violet: #7a57d1;
+$error-color: #d19a9a;
+
+$labels-color: $light-text-color;
+$borders-color: #e0e6ed;
