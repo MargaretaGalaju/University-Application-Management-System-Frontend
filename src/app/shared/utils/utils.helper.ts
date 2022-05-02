@@ -34,7 +34,6 @@ export function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera, cameraF
   
   camera.position.setY(camera.position.y+12);
   camera.position.setX(camera.position.x+25);
-  console.log(camera.position);
 
   // pick some near and far values for the frustum that
   // will contain the box.

@@ -2,7 +2,22 @@
   <canvas #rendererCanvas id="renderCanvas"></canvas>
 </div>
 
-<div class="faculty-info" *ngIf="activeFaculty | async as faculty">
-  Title: {{ faculty.title }}
-  Id: {{ faculty.id }}
+<div class="faculty-info" *ngIf="activeFaculty$ | async as faculty">
+  <div class="header">
+    <span>Title: {{ faculty.title }}</span>
+    <mat-icon (click)="closeFacultyCard()">close</mat-icon>
+  </div>
+
+  <div class="content">
+    <div class="description">
+      {{ faculty.description }}
+    </div>
+    
+    <div class="specialty-list d-flex flex-column">
+      <div class="specialty d-flex" *ngFor="let specialty of faculty.specialties">
+        <mat-icon>check</mat-icon>
+        <span>{{specialty.title}}</span>
+      </div>
+    </div>
+  </div>
 </div>
