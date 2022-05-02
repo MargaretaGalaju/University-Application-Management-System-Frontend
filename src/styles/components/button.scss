@@ -6,6 +6,12 @@ button {
   font-weight: bold;
   height: 40px;
   
+  &.primary {
+    border: 1px solid #7452A9;
+    background: linear-gradient(173deg, #7452A9 22%, #DD70CD 109%);;
+    color: white;
+  }
+
   &.secondary {
     border: 1px solid white;
     background-color: transparent;

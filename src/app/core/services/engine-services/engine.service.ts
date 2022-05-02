@@ -206,10 +206,32 @@ export class EngineService {
               {
                 id: '1',
                 title: 'Software Engineering',
+                description: 'You never know how you\'ll like it' ,
               },
               {
                 id: '2',
                 title: 'Mechanical Electronics',
+                description: 'You never know how you\'ll like it' ,
+              },
+              {
+                id: '2',
+                title: 'Mechanical Electronics',
+                description: 'You never know how you\'ll like it' ,
+              },
+              {
+                id: '2',
+                title: 'Mechanical Electronics',
+                description: 'You never know how you\'ll like it' ,
+              },
+              {
+                id: '2',
+                title: 'Mechanical Electronics',
+                description: 'You never know how you\'ll like it' ,
+              },
+              {
+                id: '2',
+                title: 'Mechanical Electronics',
+                description: 'You never know how you\'ll like it' ,
               },
             ],
           };

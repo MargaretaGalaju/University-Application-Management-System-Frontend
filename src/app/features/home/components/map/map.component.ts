@@ -1,14 +1,37 @@
+import { animate, group, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { EngineService } from 'src/app/core/services/engine-services/engine.service';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
 import { FacultyInfoService } from 'src/app/core/services/faculty-info.service';
+import { slideInAnimation } from 'src/app/shared/animations/animations';
 import { Faculty } from 'src/app/shared/models/faculty.model';
 import * as THREE from 'three';
 
+const listAnimation = trigger('listAnimation', [
+  transition('* <=> *', [
+    query(':enter',
+      [style({ opacity: 0 }), stagger('100ms', animate('600ms ease-out', style({ opacity: 1 })))],
+      { optional: true }
+    ),
+   
+  ])
+]);
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateX(100%)'}),
+        animate('200ms ease-in', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({transform: 'translateX(100%)'}))
+      ])
+    ]),
+    listAnimation
+  ],
 })
 export class MapComponent  implements OnInit, OnDestroy {
   @ViewChild('rendererCanvas', {static: true})
@@ -16,14 +39,24 @@ export class MapComponent  implements OnInit, OnDestroy {
 
   public activeFaculty$ = this.facultyInfoService.activeFaculty$;
 
+  public activeSpecialtyId: number;
+  
   constructor(
     private readonly engineService: EngineService,
     private readonly facultyInfoService: FacultyInfoService,
     private readonly facultyApiService: FacultyApiService,
-  ) { }
+  ) {
+
+    this.activeFaculty$.subscribe((faculty) => {
+      const initialFacSpecialties = faculty.specialties;
+      faculty.specialties = [];
+      setTimeout(() => {
+        faculty.specialties = initialFacSpecialties;
+      }, 10)
+    })
+   }
 
   public ngOnInit(): void {
-
     this.facultyApiService.getAllFaculties().subscribe((faculties: Faculty[]) => {
       this.createScene(faculties);
     }, ()=> {
@@ -55,5 +88,9 @@ export class MapComponent  implements OnInit, OnDestroy {
 
   public closeFacultyCard(): void {
     this.facultyInfoService.activeFaculty.next(null);
+  }
+
+  public onSpecialtyClick(index: number): void {
+    this.activeSpecialtyId = index === this.activeSpecialtyId ? null : index;
   }
 }

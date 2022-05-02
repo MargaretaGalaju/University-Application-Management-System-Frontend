@@ -15,15 +15,18 @@
     border-bottom: 1px solid $borders-color;
     padding: 10px 20px;
     display: flex;
+    place-items: center;
 
-    span {
+    span.title {
       flex: 1;
+      font-weight: 700;
+      font-size: 15px;
     }
 
     mat-icon {
-      height: 18px;
-      width: 18px;
-      font-size: 18px;
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
       cursor: pointer;
     }
   }
@@ -36,7 +39,32 @@
     }
 
     .specialty-list {
-      
+      .specialty {
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 1px solid $borders-color;
+        cursor: pointer;
+
+        mat-icon {
+          font-size: 13px;
+          width: 13px;
+          height: 13px;
+
+          &.opened {
+            transition: all 0.4s ease;
+            transform: rotateZ(180deg); 
+          }
+        }
+
+        span.title {
+          font-weight: 500;
+          flex: 1;
+        }
+
+        span.description {
+          font-size: 13px;
+        }
+      }
     }
   }
 }
