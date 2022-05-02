@@ -1,1 +1,8 @@
-<p>map works!</p>
+<div class="engine-wrapper">
+  <canvas #rendererCanvas id="renderCanvas"></canvas>
+</div>
+
+<div class="faculty-info" *ngIf="activeFaculty | async as faculty">
+  Title: {{ faculty.title }}
+  Id: {{ faculty.id }}
+</div>

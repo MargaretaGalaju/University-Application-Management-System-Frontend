@@ -5,4 +5,6 @@ export enum RouteEnum {
   home = 'home',
   profile = 'profile',
   map = 'map',
+  about = 'about',
+  support = 'support',
 }

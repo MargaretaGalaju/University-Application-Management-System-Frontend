@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layouts/header/header.component';
 import { BasicLayoutComponent } from './layouts/basic-layout/basic-layout.component';
 import { RouterModule } from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    MatIconModule,
     RouterModule,
   ],
   exports: [

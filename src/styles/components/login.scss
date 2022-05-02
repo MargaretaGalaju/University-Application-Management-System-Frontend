@@ -1,5 +1,5 @@
-$logo-width: 150px;
-$logo-height: 150px;
+$logo-width: 100px;
+$logo-height: 100px;
 
 .login-wrapper {
   background: linear-gradient(-216deg, #5345a0 0%, #f2d3fb 87%);
@@ -22,7 +22,7 @@ $logo-height: 150px;
       border-radius: 5px 0 0 5px;
       padding-left: 0 !important;
 
-      .login-logo-bachground {
+      .login-logo-background {
         position: relative;
         width: 250px;
         border-radius: 5px 0 0 5px;
@@ -30,8 +30,27 @@ $logo-height: 150px;
 
       .login-logo {
         position: absolute;
-        top: calc(50% - #{calc($logo-height/2)});
+        top: calc(50% - #{calc($logo-height/2)} - 20px);
         left: calc(50% - #{calc($logo-width/2)});
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        align-self: center;
+
+        .img-logo {
+          filter: invert(1);
+          width: 100px;
+          height: 100px;
+        }
+
+        .logo-text {
+          vertical-align: middle;
+          color: #ffffff;
+          font-weight: 500;
+          font-size: 20px;
+        }
       }
     }
 

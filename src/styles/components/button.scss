@@ -1,0 +1,14 @@
+button {
+  outline: none;
+  border-radius: 3px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  height: 40px;
+  
+  &.secondary {
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+  }
+}

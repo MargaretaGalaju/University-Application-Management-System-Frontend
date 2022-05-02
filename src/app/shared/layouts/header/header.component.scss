@@ -1,0 +1,76 @@
+.navigation-bar {
+  background: linear-gradient(173deg, #7452A9 22%, #DD70CD 109%);
+  height: 80px;
+  width: 100vw;
+  display: flex;
+  padding: 0 30px;
+  position: fixed;
+  z-index: 99999;
+
+  .logo-text {
+    color: white;
+    font-weight: 500;
+    font-size: 23px;
+  }
+
+  .item {
+    color: white;
+    height: 40px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    margin: 0 3px;
+    cursor: pointer;
+
+    &.active, &:hover {
+      background-color: rgba(255,255,255, 20%);
+      border-radius: 3px;
+    }
+  }
+
+  .profile-actions {
+    margin-left: 15px;
+        
+    .find-faculty {
+      margin-right: 20px;
+    }
+
+    .profile {
+      height: 40px;
+      padding: 0 10px;
+
+      &:hover {
+        background-color: rgba(255,255,255, 20%);
+        border-radius: 3px;
+      }
+
+      .profile-icon {
+        margin-right: 5px;
+      }
+      .options-icon {
+        width: 15px;
+      }
+
+      mat-icon {
+        color: white;
+      }
+      
+      .user-name {
+        color: white;
+      }
+    }  
+  }
+}
+
+.logo {
+  .university-hat {
+    filter: invert(1);
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-text {
+    vertical-align: middle;
+  }
+}
