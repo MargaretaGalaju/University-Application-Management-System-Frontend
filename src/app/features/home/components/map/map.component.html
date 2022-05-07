@@ -2,31 +2,8 @@
   <canvas #rendererCanvas id="renderCanvas"></canvas>
 </div>
 
-  <div class="faculty-info" *ngIf="activeFaculty$ | async as faculty" [@slideInOut]>
-    <div class="header">
-      <span class="title">Title: {{ faculty.title }}</span>
-      <mat-icon (click)="closeFacultyCard()">close</mat-icon>
-    </div>
-  
-    <div class="content">
-      <div class="description">
-        {{ faculty.description }}
-      </div>
-      
-      <div [@listAnimation]="faculty?.specialties?.length" class="specialty-list d-flex flex-column">
-        <div *ngFor="let specialty of faculty.specialties; let index=index" class="specialty d-flex flex-column">
-          <div class="w-100 d-flex" (click)="onSpecialtyClick(index)">
-            <span class="title">{{specialty.title}}</span>
-            <mat-icon [ngClass]="{opened: index === activeSpecialtyId}">keyboard_arrow_down</mat-icon>
-          </div>
-  
-          <div [@listAnimation]="index === activeSpecialtyId">
-            <div *ngIf="index === activeSpecialtyId" class="d-flex flex-column w-100 specialty-details">
-              <span class="description">{{specialty.description}}</span>
-              <button class="button primary">Read more</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<app-faculty-details></app-faculty-details>
+
+<div *ngIf="isLoading | async" class="loader w-100 h-100 d-flex justify-content-center ">
+  <mat-spinner></mat-spinner>
+</div>

@@ -5,7 +5,8 @@ button {
   font-size: 14px;
   font-weight: bold;
   height: 40px;
-  
+  white-space: nowrap;
+
   &.primary {
     border: 1px solid #7452A9;
     background: linear-gradient(173deg, #7452A9 22%, #DD70CD 109%);;
@@ -15,6 +16,16 @@ button {
   &.secondary {
     border: 1px solid white;
     background-color: transparent;
+    color: white;
+
+    &.bck {
+      background: linear-gradient(173deg, #ae85ee 22%, #DD70CD 109%);
+    }
+  }
+
+  &.custom {
+    border: 1px solid white;
+    background: linear-gradient(173deg, #ae85ee 22%, #DD70CD 109%);
     color: white;
   }
 }

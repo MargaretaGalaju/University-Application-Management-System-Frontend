@@ -3,13 +3,14 @@ import { ElementRef, Injectable, NgZone, OnDestroy, OnInit } from '@angular/core
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Image3DLoaderService } from './3d-image-loader.service';
 import { first } from 'rxjs/operators';
-import { dumpObject, frameArea } from '../../../shared/utils/utils.helper';
+import { frameArea } from '../../../shared/utils/utils.helper';
 import { FacultyInfoService } from '../faculty-info.service';
 import { Vector3 } from 'three';
 import { Faculty } from 'src/app/shared/models/faculty.model';
 import { Building } from 'src/app/shared/models/building.model';
+import { LoadingService } from '../loading.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class EngineService {
   public canvas: HTMLCanvasElement;
   public renderer: THREE.WebGLRenderer;
@@ -17,7 +18,21 @@ export class EngineService {
   private scene: THREE.Scene;
   private light: THREE.AmbientLight;
   private cameraFrustrum = 45;
+
   public controls: OrbitControls;
+  public isUserInteracting = false;
+  public onMouseDownMouseX = 0;
+   public onMouseDownMouseY = 0;
+   public onPointerDownPointerX;
+   public onPointerDownPointerY;
+   public onPointerDownLat;
+   public onPointerDownLon;
+   public lon = 0;
+   public onMouseDownLon = 0;
+   public lat = 0;
+   public onMouseDownLat = 0;
+   public phi = 0;
+   public theta = 0;
 
   public manager = new THREE.LoadingManager();
   public isLoading = true;
@@ -36,9 +51,10 @@ export class EngineService {
   public translatedBackScenePositions: Vector3;
 
   constructor(
-    private ngZone: NgZone,
-    private facultyInfoService: FacultyInfoService,
-    private objectLoader: Image3DLoaderService,
+    private readonly ngZone: NgZone,
+    private readonly facultyInfoService: FacultyInfoService,
+    private readonly objectLoader: Image3DLoaderService,
+    private readonly loadingService: LoadingService,
   ) {
 
     this.facultyInfoService.activeFaculty$.subscribe((faculty) => {
@@ -54,14 +70,161 @@ export class EngineService {
     });
    }
 
-  public createScene(canvas: ElementRef<HTMLCanvasElement>, faculties?: Faculty[]): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
     this.canvas = canvas.nativeElement;
 
     this.initSceneConfigurations();
     this.addCity();
     this.render();
     this.animate();
+    this.loadingService.stopLoading();
   }
+
+  // public createVirtualTourScene(canvas: ElementRef<HTMLCanvasElement>, facultyId: string): void {
+  //   this.canvas = canvas.nativeElement;
+
+  //   // this.initSceneConfigurations();
+  //   // this.addCity();
+  //   this.addFac();
+  //   this.animate1();
+  // }
+
+  // public addFac() {
+  //   this.renderer = new THREE.WebGLRenderer({
+  //     canvas: this.canvas,
+  //     alpha: true,
+  //     antialias: true
+  //   });
+  //   this.renderer.setPixelRatio( window.devicePixelRatio );
+  //   this.renderer.setSize( window.innerWidth, window.innerHeight );
+  //   // this.container.appendChild( this.renderer.domElement )
+  //   this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+  //   this.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+
+  //   this.scene = new THREE.Scene();
+  //   const geometry = new THREE.SphereGeometry( 500, 60, 40 );
+  //   geometry.scale( - 1, 1, 1 );
+
+  //   var material = new THREE.MeshBasicMaterial( {
+  //     map: new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/2294472375_24a3b8ef46_o.jpg' )
+  //   });
+
+  //   const mesh = new THREE.Mesh( geometry, material );
+
+  //   this.scene.add(mesh);
+  //   this.controls = new OrbitControls( this.camera, this.renderer.domElement );
+  //   this.controls.update();
+
+    
+  //   document.addEventListener( 'mousedown', this.onDocumentMouseDown.bind(this), false );
+  //   document.addEventListener( 'mousemove', this.onDocumentMouseMove.bind(this), false );
+  //   document.addEventListener( 'mouseup', this.onDocumentMouseUp.bind(this), false );
+  //   document.addEventListener( 'wheel', this.onDocumentMouseWheel.bind(this), false );
+
+
+  //   document.addEventListener( 'dragover', function ( event ) {
+
+  //     event.preventDefault();
+  //     event.dataTransfer.dropEffect = 'copy';
+
+  //   }, false );
+
+  //   document.addEventListener( 'dragenter', function ( event ) {
+
+  //     document.body.style.opacity = '0.5';
+
+  //   }, false );
+
+  //   document.addEventListener( 'dragleave', function ( event ) {
+
+  //     document.body.style.opacity = '1';
+
+  //   }, false );
+
+  //   document.addEventListener( 'drop', function ( event ) {
+
+  //     event.preventDefault();
+
+  //     var reader = new FileReader();
+  //     reader.addEventListener( 'load', function ( event ) {
+
+  //       material.map.image.src = event['target'].result;
+  //       material.map.needsUpdate = true;
+
+  //     }, false );
+  //     reader.readAsDataURL( event.dataTransfer.files[ 0 ] );
+
+  //     document.body.style.opacity = '1';
+
+  //   }, false );
+
+  //   window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
+  // }
+
+  
+  // public onWindowResize() {
+  //   this.camera.aspect = window.innerWidth / window.innerHeight;
+  //   this.camera.updateProjectionMatrix();
+
+  //   this.renderer.setSize( window.innerWidth, window.innerHeight );
+  // }
+
+  // public onDocumentMouseDown( event ) {
+  //   event.preventDefault();
+  //   this.isUserInteracting = true;
+
+  //   this.onPointerDownPointerX = event.clientX;
+  //   this.onPointerDownPointerY = event.clientY;
+
+  //   this.onPointerDownLon = this.lon;
+  //   this.onPointerDownLat = this.lat;
+  // }
+
+  // public onDocumentMouseMove( event ) {
+  //   if ( this.isUserInteracting === true ) {
+  //     this.lon = ( this.onPointerDownPointerX - event.clientX ) * 0.1 + this.onPointerDownLon;
+  //     this.lat = ( event.clientY - this.onPointerDownPointerY ) * 0.1 + this.onPointerDownLat;
+  //   }
+  // }
+
+  // public onDocumentMouseUp( event ) {
+  //   this.isUserInteracting = false;
+  // }
+
+  // public onDocumentMouseWheel( event ) {
+  //   this.camera.fov += event.deltaY * 0.05;
+  //   this.camera.updateProjectionMatrix();
+  // }
+
+  // public animate1() {
+  //   this.frameId = requestAnimationFrame(() => {
+  //     this.update();
+  //   });
+  // }
+
+  // public update() {
+  //   if ( this.isUserInteracting === false ) {
+  //     this.lon += 0.1;
+  //   }
+
+  //   this.lat = Math.max( - 85, Math.min( 85, this.lat ) );
+  //   this.phi = THREE.MathUtils.degToRad( 90 - this.lat );
+  //   this.theta = THREE.MathUtils.degToRad( this.lon );
+
+  //   const camera = new Vector3()
+  //   camera.x = 500 * Math.sin( this.phi ) * Math.cos( this.theta );
+  //   camera.y = 500 * Math.cos( this.phi );
+  //   camera.z = 500 * Math.sin( this.phi ) * Math.sin( this.theta );
+
+  //   this.camera.lookAt( camera );
+
+  //   /*
+  //   // distortion
+  //   camera.position.copy( camera.target ).negate();
+  //   */
+
+  //   this.renderer.render( this.scene, this.camera );
+  // }
 
   public initSceneConfigurations(): void {
     this.renderer = new THREE.WebGLRenderer({
@@ -169,7 +332,11 @@ export class EngineService {
       }
     }
 
-    this.renderer.render(this.scene, this.camera);
+    if (this.renderer) {
+      this.renderer.render(this.scene, this.camera);
+    } else {
+      cancelAnimationFrame(this.frameId)
+    }
   }
 
   public toggleUIControls(enableFullNavigation: boolean): void {
@@ -206,7 +373,7 @@ export class EngineService {
               {
                 id: '1',
                 title: 'Software Engineering',
-                description: 'You never know how you\'ll like it' ,
+                description: 'You never know how you\'ll like it ' ,
               },
               {
                 id: '2',
@@ -252,7 +419,7 @@ export class EngineService {
 
       this.initialScenePositions = new Vector3(this.scene.position.x,this.scene.position.y, this.scene.position.z);
       this.controls.maxDistance = boxSize.length() * 10;
-      this.controls.target.copy(boxCenter);
+      this.controls['target'].copy(boxCenter);
       this.controls.update();
     });
   }

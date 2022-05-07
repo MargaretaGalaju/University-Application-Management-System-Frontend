@@ -5,6 +5,8 @@ export enum RouteEnum {
   home = 'home',
   profile = 'profile',
   map = 'map',
+  virtualTour = 'virtual-tour',
   about = 'about',
   support = 'support',
+  applicationProcess = 'application-process',
 }

@@ -11,20 +11,20 @@ const routes: Routes = [
       import('./features/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: RouteEnum.home,
-    component: BasicLayoutComponent,
-    loadChildren: () =>
-      import('./features/home/home.module').then((m) => m.HomeModule),
-  },
-  {
     path: RouteEnum.profile,
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/profile/profile.module').then((m) => m.ProfileModule),
   },
   {
+    path: '',
+    component: BasicLayoutComponent,
+    loadChildren: () =>
+      import('./features/home/home.module').then((m) => m.HomeModule),
+  },
+  {
     path: '**',
-    redirectTo: `/${RouteEnum.home}/${RouteEnum.map}`,
+    redirectTo: ``,
   }
 ];
 

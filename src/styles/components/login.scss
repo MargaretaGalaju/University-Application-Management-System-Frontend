@@ -64,10 +64,6 @@ $logo-height: 100px;
         display: flex;
         flex-direction: column;
         width: 100%;
-        
-        form {
-          // flex: 1;
-        }
 
         button {
           justify-content: end;
@@ -88,20 +84,6 @@ $logo-height: 100px;
           margin: 0 !important;
         }
 
-        label {
-          font-size: 13px;
-          color: $labels-color;
-          margin: 0;
-        }
-
-        input {
-          font-size: 14px;
-        }
-
-        input::placeholder {
-          color: $borders-color;
-        }
-
         .new-account {
           color: #848587;
           margin-top: 5px;
@@ -117,17 +99,4 @@ $logo-height: 100px;
       }
     }
   }
-}
-
-.form-group.errors {
-  margin-bottom: 0;
-
-  input {
-    border-color: $error-color;
-  }
-}
-
-div.validation-message {
-  color: $error-color;
-  font-size: 12px;
 }

@@ -1,55 +1,24 @@
 import {
   animation, trigger, animateChild, group,
-  transition, animate, style, query, state
+  transition, animate, style, query, state, stagger
 } from '@angular/animations';
 
-export const transAnimation = animation([
-  style({
-    height: '{{ height }}',
-    opacity: '{{ opacity }}',
-    backgroundColor: '{{ backgroundColor }}'
-  }),
-  animate('{{ time }}')
+export const listAnimation = trigger('listAnimation', [
+  transition('* <=> *', [
+    query(':enter',
+      [style({ opacity: 0 }), stagger('100ms', animate('600ms ease-out', style({ opacity: 1 })))],
+      { optional: true }
+    ),
+   
+  ])
 ]);
 
-// Routable animations
-export const slideInAnimation =
-  trigger('slideIn', [
-    state('show', style({
-      position: 'absolute',
-      top: '90px',
-      right: '12px',
-      width: '300px',
-    })),
-    state('hide', style({
-      position: 'absolute',
-      top: '0',
-      right: '0',
-      width: '0',
-    })),
-    transition('show <=> hide', [
-      style({ position: 'relative' }),
-      query(':enter, :leave', [
-        style({
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%'
-        })
-      ]),
-      query(':enter', [
-        style({ left: '-100%'})
-      ]),
-      query(':leave', animateChild()),
-      group([
-        query(':leave', [
-          animate('300ms ease-out', style({ left: '100%'}))
-        ]),
-        query(':enter', [
-          animate('300ms ease-out', style({ left: '0%'}))
-        ])
-      ]),
-      query(':enter', animateChild()),
-    ]),
-  ]);
-
+export const slideInOutAnimation = trigger('slideInOut', [
+  transition(':enter', [
+    style({transform: 'translateX(100%)'}),
+    animate('200ms ease-in', style({transform: 'translateX(0%)'}))
+  ]),
+  transition(':leave', [
+    animate('200ms ease-in', style({transform: 'translateX(100%)'}))
+  ])
+])

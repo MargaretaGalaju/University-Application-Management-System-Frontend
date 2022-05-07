@@ -21,7 +21,8 @@
     align-items: center;
     margin: 0 3px;
     cursor: pointer;
-
+    white-space: nowrap;
+    
     &.active, &:hover {
       background-color: rgba(255,255,255, 20%);
       border-radius: 3px;
@@ -63,6 +64,8 @@
 }
 
 .logo {
+  margin-top: -5px;
+
   .university-hat {
     filter: invert(1);
     margin-right: 10px;

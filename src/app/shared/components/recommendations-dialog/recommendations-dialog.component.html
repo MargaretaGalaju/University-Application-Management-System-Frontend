@@ -1,0 +1,47 @@
+<div class="header">
+  <span class="title">Get personal recommendations</span>
+  <mat-icon (click)="closeModal()">close</mat-icon>
+</div>
+
+<div class="content" *ngIf="formGroup && existingHobbies.length; else loadingTemplate">
+  <span class="description">Our system will help you to find a specialty that will match your skills! 
+    Just choose your strong skills in the list bellow, and we'll find you a match.</span>
+
+    <form [formGroup]="formGroup">
+      <mat-form-field class="example-chip-list w-100" appearance="fill" >
+        <mat-label>Select your hobbies</mat-label>
+        
+        <mat-chip-list #chipList aria-label="Hobby selection">
+          <mat-chip *ngFor="let hobby of selectedHobbies"
+                    (removed)="remove(hobby)">
+            {{ hobby }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+          </mat-chip>
+
+          <input placeholder="New hobby..."
+                 #hobbyInput
+                 formControlName="hobbyInput"
+                 [matAutocomplete]="auto"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let hobby of filteredHobbies | async" [value]="hobby">
+            {{hobby}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+</div>
+
+<div class="footer justify-content-center">
+  <button class="primary" (click)="onSubmit()">Start Search</button>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="d-flex justify-content-center p-4">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

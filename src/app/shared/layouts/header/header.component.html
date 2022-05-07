@@ -1,18 +1,20 @@
 <div class="navigation-bar align-items-center d-flex">
-  <div class="logo">
+  <div class="logo d-flex flex-column align-items-center text-center mr-4">
     <img class="university-hat" src="assets/images/university-hat.png" height="50px" width="50px" alt="">
     <span class="logo-text">Unipply</span>
   </div>
 
-  <div class="nav-items flex-grow-1 d-flex justify-content-end">
-    <a *ngFor="let navItem of navItems" class="item" [ngClass]="{active: navItem.navigateUrl === currentRoute}">
+  <div class="nav-items flex-grow-1 d-flex justify-content-start ml-4">
+    <a *ngFor="let navItem of navItems" class="item" [routerLink]="'/' + navItem.navigateUrl" [ngClass]="{active: navItem.navigateUrl === (currentRoute$ | async)}">
       {{ navItem.title }}
     </a>
   </div>
 
   <div class="profile-actions align-items-center d-flex">
     <ng-container *ngIf="isAuthentificated(); else unauthorizedUserTemplate">
-      <button class="find-faculty button secondary">Find your faculty</button>
+      <button class="button custom mr-2">Apply now</button>
+
+      <button class="find-faculty button secondary" (click)="openRecommendationsDialog()">Find your faculty</button>
       
       <div class="profile align-items-center d-flex">
         <mat-icon class="profile-icon" aria-hidden="false" aria-label="options">account_circle</mat-icon>
@@ -21,7 +23,7 @@
     </ng-container>
 
     <ng-template #unauthorizedUserTemplate>
-      <button class="button secondary">Sign In</button>
+      <button class="button secondary" (click)="redirectToLoginPage()">Sign In</button>
     </ng-template>
   </div>
 </div>

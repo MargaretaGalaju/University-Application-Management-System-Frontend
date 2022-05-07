@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SharedModule } from './shared/shared.module';
+import {MatDialogModule} from '@angular/material/dialog';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -35,6 +36,7 @@ export function tokenGetter() {
     MatProgressSpinnerModule,
     HttpClientModule,
     SharedModule,
+    MatDialogModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

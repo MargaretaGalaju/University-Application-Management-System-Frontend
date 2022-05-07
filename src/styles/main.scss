@@ -1,15 +1,31 @@
+// External styles
+@use '@angular/material' as mat;
+@import '~@angular/material/theming';
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
+@include mat-core();
 
+// Local variables and mixins
 @import 'variables';
 @import 'mixins';
+
+// Components
 @import 'components/login';
 @import 'components/button';
+@import 'components/input';
+@import 'components/dialog';
+@import 'components/dropdown';
+
+
+$my-app-primary: mat-palette($mat-purple);
+$my-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
+@include angular-material-theme($my-app-theme);
 
 * {
   font-family: Quicksand;
 }
 
-html, body, app-root, app-game {
+html, body, app-root  {
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -20,30 +36,4 @@ html, body, app-root, app-game {
 body {
   background-color: $mainBgColor;
   color: $mainTextColor;
-}
-
-.engine-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-
-  #renderCanvas {
-    width: 100%;
-    height: 100%;
-  }
-
-  #renderCanvas:focus {
-    outline: none;
-  }
-}
-
-.ui-wrapper {
-  position: absolute;
-
-  * {
-    z-index: 10;
-  }
 }
