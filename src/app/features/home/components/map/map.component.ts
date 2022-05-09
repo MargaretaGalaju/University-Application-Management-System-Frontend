@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { EngineService } from 'src/app/core/services/engine-services/engine.service';
+import { EngineService } from 'src/app/core/services/3d-map/engine.service';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { Faculty } from 'src/app/shared/models/faculty.model';

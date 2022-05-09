@@ -4,8 +4,9 @@
     "outDir": "./out-tsc/app",
     "types": [
       "node",
-      "webgl2"
-    ]
+      "webgl2",
+      "googlemaps"
+    ],
   },
   "files": [
     "src/main.ts",

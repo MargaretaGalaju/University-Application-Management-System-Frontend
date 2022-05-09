@@ -17,6 +17,11 @@
           <h1 class="logo-name">Create new account</h1>
           
           <form class="m-t" [formGroup]="registerForm">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" placeholder="Username" formControlName="username" name="username">
+            </div>
+
             <div class="form-group" [ngClass]="{errors: !registerForm.get('email').pristine && !registerForm.get('email').valid}">
               <label for="email">Email</label>
               <input type="email" class="form-control" placeholder="E-mail" formControlName="email" name="email">
