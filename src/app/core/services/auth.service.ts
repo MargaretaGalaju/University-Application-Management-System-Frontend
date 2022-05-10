@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { catchError, map } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class AuthService {
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
   ) {
     this.authenticationState$ = new BehaviorSubject<boolean>(this.isAuthenticated());
   }
@@ -39,15 +40,11 @@ export class AuthService {
         password: password,
       }, {
         headers: this.getHeaders(customHeaders)
-      })
-      .pipe(
+      }).pipe(
         map((result: any) => {
-          if (result.status === 'ok') {
-            this.onSuccessfulLogin(result.token);
-
-            return result;
-          }
-        }, catchError(this.handleError))
+          this.onSuccessfulLogin(result.token);
+        }),
+        catchError(this.handleError),
       );
   }
  
@@ -71,14 +68,9 @@ export class AuthService {
       })
       .pipe(
         map((result: any) => {
-          if (result.status === 'ok') {
-            localStorage.setItem(JWT_TOKEN_NAME, result.token);
-
-            this.setAuthenticationState(true);
-
-            return result;
-          }
-        }, catchError(this.handleError))
+          this.onSuccessfulLogin(result.token);
+        }),
+        catchError(this.handleError)
       );
   }
 
@@ -108,7 +100,6 @@ export class AuthService {
 
   public removeStaleCredentials(): void {
     localStorage.removeItem(JWT_TOKEN_NAME);
-    // localStorage.removeItem('user');
   }
 
   public getHeaders(customHeaders?: HttpHeaders): HttpHeaders {
@@ -124,6 +115,12 @@ export class AuthService {
   }
 
   private handleError(error: any): Observable<never> {
+    if (error?.error?.message) {
+      this.snackBar?.open(error.error.message, 'Splash', {
+        horizontalPosition: 'end',
+        verticalPosition: 'top',
+      });
+    }
     return throwError(error);
   }
 }

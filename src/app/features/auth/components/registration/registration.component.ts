@@ -34,9 +34,7 @@ export class RegistrationComponent implements OnInit {
       password: this.registerForm.value.password,
     }
     
-    this.authService.register(postBody).subscribe((result) => {
-      this.authService.onSuccessfulLogin(result.token);
-    });
+    this.authService.register(postBody).subscribe();
   }
 
   public checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 

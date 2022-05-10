@@ -191,7 +191,7 @@ export class RecomendationsComponent {
 
     this.loaderProgress.next(0);
 
-    const numbers = interval(5);
+    const numbers = interval(45);
     const takeFourNumbers = numbers.pipe(
       take(101),
     );

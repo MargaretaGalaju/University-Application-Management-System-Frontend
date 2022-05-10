@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SharedModule } from './shared/shared.module';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -37,6 +38,7 @@ export function tokenGetter() {
     HttpClientModule,
     SharedModule,
     MatDialogModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

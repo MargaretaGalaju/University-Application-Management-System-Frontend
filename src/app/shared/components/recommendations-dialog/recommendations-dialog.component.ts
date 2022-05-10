@@ -75,9 +75,6 @@ export class RecommendationsDialogComponent implements OnInit {
   public add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim().toLowerCase();
 
-    console.log( !this.existingHobbies.find(hobby => hobby.toLowerCase().includes(value)),
-    this.selectedHobbies.find(hobby => hobby.toLowerCase().includes(value)));
-    
     if (!value ||
       !this.existingHobbies.find(hobby => hobby.toLowerCase().includes(value)) ||
       this.selectedHobbies.find(hobby => hobby.toLowerCase().includes(value))) {
@@ -100,7 +97,18 @@ export class RecommendationsDialogComponent implements OnInit {
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedHobbies.push(event.option.viewValue);
+    const value = event.option.viewValue.toLowerCase();
+    
+    if (!value ||
+      !this.existingHobbies.find(hobby => hobby.toLowerCase().includes(value)) ||
+      this.selectedHobbies.find(hobby => hobby.toLowerCase().includes(value))) {
+      return;
+    }
+
+    this.selectedHobbies.push(this.existingHobbies.find(hobby => hobby.toLowerCase().includes(value)));
+
+    this.hobbyInput.nativeElement.value = '';
+
     this.formGroup.get('hobbyInput').setValue(null);
   }
 
