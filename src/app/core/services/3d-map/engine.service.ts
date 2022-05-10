@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { ElementRef, Injectable, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ElementRef, Injectable, NgZone } from '@angular/core';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Image3DLoaderService } from './3d-image-loader.service';
 import { first } from 'rxjs/operators';
@@ -35,6 +35,11 @@ export class EngineService {
   public translatedScenePositions: Vector3;
   public translatedBackScenePositions: Vector3;
 
+  public initialCameraPositions: Vector3;
+  public translatedCameraPositions: Vector3;
+  public translatedBackCameraPositions: Vector3;
+
+  public isRecommendationsPage: boolean;
   constructor(
     private readonly ngZone: NgZone,
     private readonly facultyInfoService: FacultyInfoService,
@@ -54,9 +59,10 @@ export class EngineService {
     });
    }
 
-  public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>, isRecommendationsPage?:boolean): void {
     this.canvas = canvas.nativeElement;
-
+    this.isRecommendationsPage = isRecommendationsPage;
+    
     this.initSceneConfigurations();
     this.addCity();
     this.render();
@@ -91,7 +97,7 @@ export class EngineService {
 
     this.controls.enableZoom = true;
     this.controls.enablePan = true;
-    this.controls.enableRotate = true;
+    this.controls.enableRotate = !this.isRecommendationsPage;
 
     this.toggleUIControls(true);
     
@@ -115,7 +121,9 @@ export class EngineService {
   public onMouseDown( event ) { 
     this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1; 
     this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1; 
-
+    if (this.isRecommendationsPage) {
+      return;
+    }
     this.raycaster.setFromCamera( this.mouse, this.camera );
 
     let intersects = this.raycaster.intersectObjects( this.scene.children , true );
@@ -256,9 +264,15 @@ export class EngineService {
       this.scene.translateY(2);
 
       this.initialScenePositions = new Vector3(this.scene.position.x,this.scene.position.y, this.scene.position.z);
+      this.initialCameraPositions = new Vector3(this.camera.position.x,this.camera.position.y, this.camera.position.z);
+      
       this.controls.maxDistance = boxSize.length() * 10;
       this.controls['target'].copy(boxCenter);
       this.controls.update();
+
+      if (this.isRecommendationsPage) {
+        this.translatedScenePositions = new Vector3(this.scene.position.x-4, 0, this.scene.position.z+4);
+      }
     });
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteEnum } from 'src/app/core/routes/routes.enum';
 import { FacultyInfoService } from 'src/app/core/services/faculty-info.service';
-import { listAnimation, slideInOutAnimation } from 'src/app/shared/animations/animations';
+import { listAnimationFast, slideInOutAnimation } from 'src/app/shared/animations/animations';
 
 @Component({
   selector: 'app-faculty-details',
@@ -10,32 +10,27 @@ import { listAnimation, slideInOutAnimation } from 'src/app/shared/animations/an
   styleUrls: ['./faculty-details.component.scss'],
   animations: [
     slideInOutAnimation,
-    listAnimation,
+    listAnimationFast,
   ],
 })
-export class FacultyDetailsComponent {
+export class FacultyDetailsComponent implements OnInit {
   public activeFaculty$ = this.facultyInfoService.activeFaculty$;
   public activeSpecialtyId: number;
-  
+  public showAnimation = false;
+
   constructor(
     private readonly facultyInfoService: FacultyInfoService,
     private readonly router: Router,
-  ) { 
-    
-    // Not a very beautiful solution for showing the animation for the list of specialties on UI 
+  ) { }
+
+  public ngOnInit(): void {
     this.activeFaculty$.subscribe((faculty) => {
       if (!faculty) {
         return;
       }
 
       this.activeSpecialtyId = null;
-
-      const initialFacSpecialties = faculty.specialties;
-      faculty.specialties = [];
-
-      setTimeout(() => {
-        faculty.specialties = initialFacSpecialties;
-      });
+      faculty.specialties = [...faculty.specialties]
     });
   }
 

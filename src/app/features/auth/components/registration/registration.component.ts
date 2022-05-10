@@ -27,8 +27,16 @@ export class RegistrationComponent implements OnInit {
     if (!this.registerForm.valid) {
       return;
     }
+
+    const postBody = {
+      username: this.registerForm.value.username, 
+      email: this.registerForm.value.email, 
+      password: this.registerForm.value.password,
+    }
     
-    this.authService.register(this.registerForm.value.email, this.registerForm.value.password).subscribe();
+    this.authService.register(postBody).subscribe((result) => {
+      this.authService.onSuccessfulLogin(result.token);
+    });
   }
 
   public checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 

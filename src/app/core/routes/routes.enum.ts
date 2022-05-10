@@ -9,4 +9,5 @@ export enum RouteEnum {
   about = 'about',
   support = 'support',
   applicationProcess = 'application-process',
+  recommendations = 'recommendations'
 }

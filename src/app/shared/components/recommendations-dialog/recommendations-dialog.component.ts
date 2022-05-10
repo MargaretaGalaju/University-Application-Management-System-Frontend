@@ -3,17 +3,18 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
+import { COMMA, ENTER, TAB } from 'src/app/core/constants/key-codes.constant';
+import { RouteEnum } from 'src/app/core/routes/routes.enum';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { RecommendationApiService } from 'src/app/core/services/recommendation-api.service';
-export const COMMA = 188;
-export const TAB = 9;
-export const ENTER = 13;
+
 @Component({
   selector: 'app-recommendations-dialog',
   templateUrl: './recommendations-dialog.component.html',
-  styleUrls: ['./recommendations-dialog.component.scss']
+  styleUrls: ['./recommendations-dialog.component.scss'],
 })
 export class RecommendationsDialogComponent implements OnInit {
   @ViewChild('hobbyInput')
@@ -30,6 +31,7 @@ export class RecommendationsDialogComponent implements OnInit {
   }
 
   constructor(
+    private readonly router: Router,
     private readonly dialogRef: MatDialogRef<any>,
     private readonly loadingService: LoadingService,
     private readonly recommendationApiService: RecommendationApiService,
@@ -61,8 +63,12 @@ export class RecommendationsDialogComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.recommendationApiService.getCustomSpecialtyRecommendations(this.selectedHobbies).subscribe(() => {
-
+    this.recommendationApiService.getCustomSpecialtyRecommendations(this.selectedHobbies).subscribe((recommendations) => {
+      this.router.navigate([RouteEnum.recommendations], {
+        state: recommendations,
+      });
+     
+      this.dialogRef.close();
     });
   }
 

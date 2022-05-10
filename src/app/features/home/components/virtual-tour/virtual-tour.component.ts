@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { fcim } from 'src/app/core/constants/faculties-geo-location.constant';
 import { EngineService } from 'src/app/core/services/3d-map/engine.service';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
@@ -30,7 +30,9 @@ export class VirtualTourComponent {
 
   public outsideGoogle: google.maps.StreetViewPanoramaData;
   
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     window.initMap = new google.maps.StreetViewService()
       .getPanorama({ location: { lat: 47.061621, lng: 28.867827 }}, (data) => {
         this.outsideGoogle = data;
@@ -44,7 +46,7 @@ export class VirtualTourComponent {
         pano: panorama.pano,
         description: panorama.description,
         latLng: new google.maps.LatLng(panorama.position.lat, panorama.position.long),
-      },
+    },
       links: [
         {
           heading: 195,
@@ -103,5 +105,9 @@ export class VirtualTourComponent {
         });
       }
     });
+  }
+
+  public navigateBack() {
+    this.router.navigateByUrl('/');
   }
 }

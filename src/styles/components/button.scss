@@ -18,6 +18,12 @@ button {
     background-color: transparent;
     color: white;
 
+    &.colored {
+      border: 1px solid #7452A9;
+      background-color: transparent;
+      color: #7452A9;
+    }
+
     &.bck {
       background: linear-gradient(173deg, #ae85ee 22%, #DD70CD 109%);
     }

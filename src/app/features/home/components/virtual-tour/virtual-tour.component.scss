@@ -1,3 +1,10 @@
 #street-view {
   height: 100vh;
 }
+
+.go-back {
+  z-index: 100;
+  position: absolute;
+  top: 100px;
+  left: 20px;
+}

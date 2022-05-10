@@ -1,0 +1,49 @@
+<div class="engine-wrapper">
+  <canvas #rendererCanvas id="renderCanvas"></canvas>
+</div>
+
+<div *ngIf="!(loaderProgress | async); else loadingTemplate" class="recommendations-wrapper">
+  <h2 class="d-flex justify-content-center font-weight-bold mt-2 mr-4">Recommendations:</h2>
+  
+  <div *ngIf="(recommendations$ | async) as recommendations" 
+       [@listAnimation]="recommendations?.length"
+       class="d-flex flex-column align-items-end mr-4">
+    <div *ngFor="let faculty of recommendations; let index=index" 
+          class="faculty-info" 
+          [ngClass]="{ opened: faculty.opened }"
+          (click)="faculty.opened = !faculty.opened">
+      <div class="header">
+        <span class="title"> {{ faculty.facultyTitle }}</span>
+        <mat-icon [ngClass]="{ opened: faculty.opened }">keyboard_arrow_down</mat-icon>
+      </div>
+
+      <ng-container *ngIf="faculty.opened">
+        <div *ngFor="let specialty of faculty.specialties" class="specialty-detail">
+          <div class="background" [style]="'width: calc('+ specialty.score +'% - 10px)'"></div>
+
+          <div class="text d-flex justify-content-between">
+            <span class="font-weight-semi-bold">{{ specialty.title }}</span>
+            <span class="font-weight-bold justify-content-end">{{ specialty.score }}%</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #loadingTemplate>
+  <div [@scaleContinously] class="loader w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center pb-4">
+    <div class="spinner mb-4">
+      <mat-spinner></mat-spinner>
+      <span><b>{{loaderProgress | async}}%</b></span>
+    </div>
+  
+    <span class="loading-info mt-4 pb-4">
+      The <b>Uniply</b> system has Machine Learning integration. 
+      Our robots are trying to find for you the best specialties according to the skills and hobbies 
+      you've just provided! So it can take a while, please wait...
+    </span>
+  </div>
+</ng-template>

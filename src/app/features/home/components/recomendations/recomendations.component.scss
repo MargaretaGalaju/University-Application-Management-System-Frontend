@@ -1,21 +1,56 @@
 @import 'variables';
 
-.faculty-info {
+.loader {
   position: absolute;
-  top: 90px;
-  right: 12px;
+  top: 80px;
+  right: 0;
+}
+
+.spinner {
+  position: relative;
+
+  span {
+    position: absolute;
+    font-size: 28px;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loading-info {
+  font-size: 22px;
+  width: 80vw;
+  line-height: 1.5;
+}
+
+
+.faculty-info {
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 10px;
-  width: 320px;
+  width: 450px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+
+  &.opened {
+    .header {
+      border-bottom: 1px solid $borders-color;
+      margin-bottom: 10px;
+    }    
+  }
 
   .header {
-    border-bottom: 1px solid $borders-color;
     padding: 10px 20px;
     display: flex;
     place-items: center;
+    cursor: pointer;
 
     span.title {
       flex: 1;
@@ -37,11 +72,7 @@
     overflow: auto;
     
     .description {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
+      margin-bottom: 20px;
     }
 
     .specialty-list {
@@ -73,4 +104,28 @@
       }
     }
   }
+}
+
+.specialty-detail {
+  position: relative;
+}
+
+.text {
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  font-size: 13px;
+}
+
+.background {
+  position: absolute;
+  background-color: #dd70cd33;
+  border-radius: 30px;
+  height: 79%;
+  left: 4px;
+}
+
+.recommendations-wrapper {
+  position: absolute;
+  top: 80px;
+  right: 0;
 }

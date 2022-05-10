@@ -5,23 +5,30 @@
   </div>
 
   <div class="content">
-    <div class="description">
-      {{ faculty.info }}
+    <div class="d-flex flex-column">
+      <span class="description mb-4">{{ faculty.info }}</span>
+
+      <div class="d-flex mb-4">
+        <button class="button mr-2 secondary colored" (click)="makeVirtualTour(faculty.id)">Read more</button>
+        <button class="button primary" (click)="makeVirtualTour(faculty.id)">Make a virtual tour</button>
+      </div>
+
+      <span class="font-weight-bold text-center mb-2">Available specialties:</span>
     </div>
 
-    <button class="button primary" (click)="makeVirtualTour(faculty.id)">Make a virtual tour</button>
-
-    <div [@listAnimation]="faculty?.specialties?.length" class="specialty-list d-flex flex-column">
+    <div [@listAnimationFast]="faculty?.specialties?.length" class="specialty-list d-flex flex-column">
       <div *ngFor="let specialty of faculty.specialties; let index=index" class="specialty d-flex flex-column">
         <div class="w-100 d-flex" (click)="onSpecialtyClick(index)">
           <span class="title">{{ specialty.title }}</span>
           <mat-icon [ngClass]="{opened: index === activeSpecialtyId}">keyboard_arrow_down</mat-icon>
         </div>
 
-        <div [@listAnimation]="index === activeSpecialtyId" class="d-flex flex-column w-100">
+        <div class="d-flex flex-column w-100">
           <div *ngIf="index === activeSpecialtyId" class="d-flex flex-column w-100 specialty-details">
             <span class="description">{{ specialty.description }}</span>
-            <button class="button custom mb-3">Read more</button>
+            <div class="d-flex">
+              <button class="button custom mb-3">Read more</button>
+            </div>
           </div>
         </div>
       </div>

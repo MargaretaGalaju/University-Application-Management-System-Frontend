@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -13,7 +14,7 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly jwtHelper: JwtHelperService,
+    private readonly router: Router,
   ) {
     this.authenticationState$ = new BehaviorSubject<boolean>(this.isAuthenticated());
   }
@@ -42,9 +43,7 @@ export class AuthService {
       .pipe(
         map((result: any) => {
           if (result.status === 'ok') {
-            localStorage.setItem(JWT_TOKEN_NAME, result.token);
-
-            this.setAuthenticationState(true);
+            this.onSuccessfulLogin(result.token);
 
             return result;
           }
@@ -52,17 +51,22 @@ export class AuthService {
       );
   }
  
-  public register(email: string, password: string): Observable<any> {
+  public onSuccessfulLogin(token: string): void {
+    localStorage.setItem(JWT_TOKEN_NAME, token);
+
+    this.setAuthenticationState(true);
+
+    this.router.navigateByUrl('/');
+  }
+  
+  public register(body): Observable<any> {
     const customHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json'
     });
     
     return this.http
-      .post<any>(`${environment.baseUrl}/auth/register`, {
-        email: email,
-        password: password,
-      }, {
+      .post<any>(`${environment.baseUrl}/auth/register`, body, {
         headers: this.getHeaders(customHeaders)
       })
       .pipe(
