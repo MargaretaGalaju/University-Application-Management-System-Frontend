@@ -36,6 +36,10 @@
     max-height: 71vh;
     overflow: auto;
     
+    mat-icon {
+      cursor: pointer;
+    }
+
     .description {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -45,11 +49,19 @@
     }
 
     .specialty-list {
+      margin-left: 30px;
+
       .specialty {
         align-items: center;
         padding: 5px 0;
         border-bottom: 1px solid $borders-color;
         cursor: pointer;
+
+        .star-icon {
+          position: absolute;
+          left: 20px;
+          font-size: 20px;
+        }
 
         mat-icon {
           font-size: 13px;

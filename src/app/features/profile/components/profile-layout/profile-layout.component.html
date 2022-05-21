@@ -1,0 +1,36 @@
+<div class="user-wrapper d-flex row" *ngIf="user$ | async as user">
+  <div class="col-sm-12 col-md-3">
+    <div class="section text-center">
+      <div class="logo d-flex align-items-center justify-content-center" (click)="image.click()">
+        <mat-icon>upload</mat-icon>
+        <input #image class="logo-upload" type="file" accept="image/*">
+      </div>
+      
+      <div class="user-info">
+        <h2>{{ user.name }}</h2>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-12 col-md-9">
+    <div class="section">
+      <mat-tab-group>
+        <mat-tab label="Personal Information">
+          <app-personal-information [user]="user"></app-personal-information>
+        </mat-tab>
+        <mat-tab label="Education">
+          // upload documents, education (school)
+        </mat-tab>
+        <mat-tab label="Application History">
+          // after we create application modal, and we did the apply request, tam ona poiavitsea cac 
+          
+          13/03/2022 Apllication
+          - Specialty of lala, status: in progress (button: Get details)
+        </mat-tab>
+        <mat-tab label="Recommendations">
+          // Toje samoe sto i na recommendations page
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

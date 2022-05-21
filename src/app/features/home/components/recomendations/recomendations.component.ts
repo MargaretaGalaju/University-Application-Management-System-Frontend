@@ -1,27 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, interval } from 'rxjs';
-import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { EngineService } from 'src/app/core/services/3d-map/engine.service';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { fontSizeChangeAnimation, listAnimation } from 'src/app/shared/animations/animations';
-import { Faculty } from 'src/app/shared/models/faculty.model';
+import { Recommendation } from 'src/app/shared/models/recommendation.model';
 import * as THREE from 'three';
-
-interface Recomendation {
-  facultyTitle: string;
-  score: number;
-  specialties: SpecialtyRecommendation[];
-  opened?: boolean;
-}
-
-interface SpecialtyRecommendation {
-  title: string;
-  score: number;
-  hobbiesData: any[];
-}
 
 @Component({
   selector: 'app-recomendations',
@@ -37,8 +23,7 @@ export class RecomendationsComponent {
   @ViewChild('rendererCanvas') public rendererCanvas: ElementRef<HTMLCanvasElement>;
 
   public isLoading = this.loadingService.isLoading$;
-
-  public recommendations$: BehaviorSubject<Recomendation[]> = new BehaviorSubject<Recomendation[]>([]);
+  public recommendations$: BehaviorSubject<Recommendation[]> = new BehaviorSubject<Recommendation[]>([]);
   public loaderProgress: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   public recomendations;
 
@@ -48,7 +33,7 @@ export class RecomendationsComponent {
     private readonly facultyApiService: FacultyApiService,
     private readonly loadingService: LoadingService,
   ) {
-    this.recomendations = this.router.getCurrentNavigation().extras.state as Recomendation[] || [
+    this.recomendations = this.router.getCurrentNavigation().extras.state as Recommendation[] || [
       {
         "facultyTitle": "Faculty of Economic Engineering and Business",
         "score": 66,
@@ -198,6 +183,7 @@ export class RecomendationsComponent {
 
     takeFourNumbers.subscribe((number) => {
       this.loaderProgress.next(number);
+      
       if (number === 100) {
         this.loaderProgress.next(0);
         this.recommendations$.next(this.recomendations );

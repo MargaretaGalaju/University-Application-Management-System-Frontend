@@ -23,6 +23,7 @@ export class EngineService {
   public isLoading = true;
   public frameId: number = null;
 
+  public facultyNames: THREE.Object3D<THREE.Event>[] = [];
   public buildings: THREE.Object3D<THREE.Event>[] = [];
   public faculties: Faculty[] = [];
 
@@ -40,6 +41,7 @@ export class EngineService {
   public translatedBackCameraPositions: Vector3;
 
   public isRecommendationsPage: boolean;
+
   constructor(
     private readonly ngZone: NgZone,
     private readonly facultyInfoService: FacultyInfoService,
@@ -158,6 +160,11 @@ export class EngineService {
       this.render();
     });
 
+    // this.facultyNames?.forEach((element) => {
+    //   element.rotation.z += 0.01;
+    // });
+
+
     if (this.translatedScenePositions && this.translatedScenePositions.x !== this.scene.position.x && this.translatedScenePositions.z !== this.scene.position.z) {
       if (this.scene.position.x >= this.translatedScenePositions.x) {
         this.scene.position.x -= 0.2;
@@ -201,8 +208,17 @@ export class EngineService {
     }
   }
 
+// fcim
+// fet
+// feee
+// fmet
+// fft
+// faub
+// fcgd
+// feeb
+// ftp
   public addCity(): void {
-    this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city1.glb`).pipe(first()).subscribe((gltf) => {
+    this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city3.glb`).pipe(first()).subscribe((gltf) => {
       const root = gltf.scene;
       this.scene.add(root);
 
@@ -250,9 +266,11 @@ export class EngineService {
           };
 
           building.userData = facultyData;
-  
           this.buildings.push(building);
         }
+
+        const facultyName = root.getObjectByName('title'+index);
+        this.facultyNames.push(facultyName)
       }
 
       const box = new THREE.Box3().setFromObject(root);

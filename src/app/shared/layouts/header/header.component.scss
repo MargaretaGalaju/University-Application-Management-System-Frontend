@@ -39,7 +39,8 @@
     .profile {
       height: 40px;
       padding: 0 10px;
-
+      cursor: pointer;
+      
       &:hover {
         background-color: rgba(255,255,255, 20%);
         border-radius: 3px;
@@ -51,15 +52,14 @@
       .options-icon {
         width: 15px;
       }
-
-      mat-icon {
-        color: white;
-      }
-      
       .user-name {
         color: white;
       }
     }  
+
+    mat-icon {
+      color: white;
+    }
   }
 }
 

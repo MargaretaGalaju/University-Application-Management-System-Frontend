@@ -16,10 +16,12 @@
 
       <button class="find-faculty button secondary" (click)="openRecommendationsDialog()">Find your faculty</button>
       
-      <div class="profile align-items-center d-flex">
+      <div class="profile align-items-center d-flex" (click)="goToProfilePage()">
         <mat-icon class="profile-icon" aria-hidden="false" aria-label="options">account_circle</mat-icon>
-        <span class="user-name">Margareta Galaju</span>
+        <span class="user-name">{{ user.name }}</span>
       </div>
+
+      <mat-icon class="logout ml-4" (click)="signout()">logout</mat-icon>
     </ng-container>
 
     <ng-template #unauthorizedUserTemplate>

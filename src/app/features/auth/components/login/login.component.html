@@ -28,7 +28,7 @@
             </div>
           </form>
 
-          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary block full-width m-b" (click)="onSubmit()">Login</button>
+          <button type="submit" [disabled]="!loginForm.valid || submitting" class="btn btn-primary block full-width m-b" (click)="onSubmit()">Login</button>
           
           <div class="new-account">
             New to Unipply? Create an account <a [routerLink]="'/auth/register'">here</a>.

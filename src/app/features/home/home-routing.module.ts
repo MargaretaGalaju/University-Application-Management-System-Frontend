@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { RouteEnum } from 'src/app/core/routes/routes.enum';
 import { MapComponent } from './components/map/map.component';
 import { RecomendationsComponent } from './components/recomendations/recomendations.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: `${RouteEnum.recommendations}`,
+    canActivate: [AuthGuard],
     //Add a resolver, if no recommedations in profile or send in url state, navigate to home page
     // resolve: [],
     component: RecomendationsComponent,

@@ -1,0 +1,63 @@
+@import 'variables';
+.field {
+  display: flex;
+  align-items: center;
+  
+  .circle {
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+    &.error {
+      mat-icon {
+        color: #a5a5a5;
+        min-width: 50px;
+        min-height: 50px;
+        font-size: 50px;
+      }
+    }
+    
+    &.check {
+      background-color: $primary-color-pink;
+
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.form {
+  display: grid;
+  grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+  column-gap: 10px;
+  row-gap: 10px;
+  margin: 20px 0;
+
+  .form-group {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+button {
+  color: white !important;
+  justify-content: end;
+  background-color: $primary-color-pink;
+  border-color: $primary-color-pink;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-self: center;
+  cursor: pointer;
+  
+  &:hover {
+    color: white !important;
+  }
+}

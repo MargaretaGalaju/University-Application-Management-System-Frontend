@@ -1,0 +1,47 @@
+@import 'variables';
+
+.user-wrapper {
+  height: 100%;
+  padding: 20px;
+  background-color: $app-background-color;
+  display: flex;
+}
+
+.section {
+  background-color: white;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
+  &.left {
+    flex: 0 0 0 25%
+  }
+
+  &.right {
+    flex: 0 0 0 75%;
+  }
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: $light-text-color;
+  margin: auto auto 20px;
+
+  input {
+    display: none;
+  }
+
+  mat-icon {
+    height: 30px;
+    width: 30px;
+    color: white;
+    font-size: 30px;
+  }
+}
+
+h2 {
+  color: #848587;
+}

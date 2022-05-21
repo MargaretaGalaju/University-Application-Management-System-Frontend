@@ -1,0 +1,14 @@
+<form [formGroup]="profileForm" class="form">
+  <div class="field" *ngFor="let field of fields">
+    <div class="circle" [ngClass]="profileForm?.get(field.key)?.value ? 'check': 'error'">
+      <mat-icon>{{profileForm?.get(field.key)?.value ? 'check': 'error'}}</mat-icon>
+    </div>
+
+    <div class="form-group">
+      <label [for]="field.key">{{field.label}}</label>
+      <input type="text" class="form-control" [formControlName]="field.key">
+    </div>
+  </div>
+</form>
+
+<button type="submit" [disabled]="!profileForm.valid" class="btn">Save info</button>

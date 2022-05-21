@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   public registerForm: FormGroup;
+  public submitting: boolean = false;
 
   constructor(
     private readonly authService: AuthService,
@@ -34,7 +35,11 @@ export class RegistrationComponent implements OnInit {
       password: this.registerForm.value.password,
     }
     
-    this.authService.register(postBody).subscribe();
+    this.authService.register(postBody).subscribe(() => {
+      this.submitting = false;
+    }, () => {
+      this.submitting = false;
+    });
   }
 
   public checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 

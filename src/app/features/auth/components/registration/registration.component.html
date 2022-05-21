@@ -61,7 +61,7 @@
             </div>
           </form>
 
-          <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary block full-width m-b" (click)="onSubmit()">Register</button>
+          <button type="submit" [disabled]="!registerForm.valid || submitting" class="btn btn-primary block full-width m-b" (click)="onSubmit()">Register</button>
           
           <div class="new-account">
             Already have an account? Go to <a [routerLink]="'/auth/login'">login page</a>.

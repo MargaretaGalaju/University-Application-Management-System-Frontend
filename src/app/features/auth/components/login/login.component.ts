@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
+  public submitting: boolean = false;
 
   constructor(
     private readonly authService: AuthService,
@@ -26,6 +27,11 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe();
+    this.submitting = true;
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(() => {
+      this.submitting = false;
+    }, () => {
+      this.submitting = false;
+    });
   }
 }

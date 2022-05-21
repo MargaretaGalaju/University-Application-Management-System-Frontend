@@ -7,6 +7,8 @@ import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { DestroyBase } from 'src/app/core/classes/destroy.class';
 import { RouteEnum } from 'src/app/core/routes/routes.enum';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from 'src/app/features/profile/models/user.model';
+import { UserService } from 'src/app/features/profile/services/user.service';
 import { RecommendationsDialogComponent } from '../../components/recommendations-dialog/recommendations-dialog.component';
 
 interface NavItem {
@@ -37,12 +39,15 @@ export class HeaderComponent extends DestroyBase implements OnInit {
 
   public currentRoute$: BehaviorSubject<RouteEnum> = new BehaviorSubject<RouteEnum>(null);
 
+  public user: User;
+  
   public isAuthentificated(): boolean {
     return this.authService.isAuthenticated();
   }
 
   constructor(
     private readonly authService: AuthService,
+    private readonly userService: UserService,
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly cdr: ChangeDetectorRef,
@@ -58,7 +63,9 @@ export class HeaderComponent extends DestroyBase implements OnInit {
   }
 
   public ngOnInit(): void {
-    // this.currentRoute$.next(this.currentRoute$.getValue())
+    this.userService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 
   public openRecommendationsDialog():void {
@@ -67,5 +74,14 @@ export class HeaderComponent extends DestroyBase implements OnInit {
 
   public redirectToLoginPage(): void {
     this.router.navigateByUrl(`/${RouteEnum.auth}/${RouteEnum.login}`);
+  }
+
+  public signout() {
+    this.authService.logout().subscribe();
+    this.router.navigateByUrl(`/${RouteEnum.auth}/${RouteEnum.login}`);
+  }
+  
+  public goToProfilePage() {
+    this.router.navigateByUrl(`/${RouteEnum.profile}`);
   }
 }
