@@ -13,7 +13,6 @@ const routes: Routes = [
   {
     path: RouteEnum.profile,
     component: BasicLayoutComponent,
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/profile/profile.module').then((m) => m.ProfileModule),
   },

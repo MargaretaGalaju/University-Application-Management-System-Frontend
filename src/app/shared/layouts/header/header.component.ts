@@ -9,6 +9,7 @@ import { RouteEnum } from 'src/app/core/routes/routes.enum';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { User } from 'src/app/features/profile/models/user.model';
 import { UserService } from 'src/app/features/profile/services/user.service';
+import { ApplicationStepperComponent } from '../../components/application-stepper/application-stepper.component';
 import { RecommendationsDialogComponent } from '../../components/recommendations-dialog/recommendations-dialog.component';
 
 interface NavItem {
@@ -70,6 +71,10 @@ export class HeaderComponent extends DestroyBase implements OnInit {
 
   public openRecommendationsDialog():void {
     this.dialog.open(RecommendationsDialogComponent)
+  }
+
+  public openApplicationStepper():void {
+    this.router.navigateByUrl(`/${RouteEnum.applicationProcess}`);
   }
 
   public redirectToLoginPage(): void {

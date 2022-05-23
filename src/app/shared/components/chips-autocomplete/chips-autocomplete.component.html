@@ -1,0 +1,27 @@
+<mat-form-field class="example-chip-list w-100" appearance="fill">
+  <mat-label>Select your hobbies</mat-label>
+  
+  <mat-chip-list #chipList aria-label="Hobby selection">
+    <mat-chip *ngFor="let hobby of selectedHobbies"
+              (removed)="remove(hobby)">
+      {{ hobby }}
+      <button matChipRemove><mat-icon>cancel</mat-icon></button>
+    </mat-chip>
+
+    <div [formGroup]="chipsForm">
+      <input placeholder="New hobby..."
+             #hobbyInput
+             formControlName="hobbyInput"
+             [matAutocomplete]="auto"
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="add($event)">
+    </div>
+  </mat-chip-list>
+  
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let hobby of filteredHobbies | async" [value]="hobby">
+      {{hobby}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

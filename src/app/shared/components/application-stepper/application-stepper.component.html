@@ -1,0 +1,124 @@
+<div class="content" *ngIf="firstFormGroup && secondFormGroup && thirdFormGroup && fourthFormGroup && fifthFormGroup; else loadingTemplate">
+  <!-- <span class="mt-4 ml-3 mr-3">We ask you to be very careful while introducing your personal data. 
+    Insert the exact data as it is in your passport/ID card.
+    Pay attention to the diacritics.</span> -->
+  
+  <mat-stepper [linear]="false" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <div class="step-content">
+        <form class="form" [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Candidate Data</ng-template>
+  
+          <div class="field" *ngFor="let field of fields1">
+            <div class="form-group">
+              <label [for]="field.key">{{field.label}}</label>
+
+              <input [type]="field.isDatePicker? 'date' :'text'" class="form-control" [formControlName]="field.formKey">
+            </div>
+
+            <div class="circle" [ngClass]="firstFormGroup?.get(field.formKey)?.value ? 'check': 'error'">
+              <mat-icon>{{firstFormGroup?.get(field.formKey)?.value ? 'check': 'error'}}</mat-icon>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <div class="buttons">
+        <button class="primary mr-4" mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    
+    <mat-step [stepControl]="secondFormGroup">
+      <div class="step-content">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Special Categories</ng-template>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                    required>
+          </mat-form-field>
+        </form>
+      </div>
+      
+      <div class="buttons">
+        <button class="primary mr-4" mat-button matStepperPrevious>Back</button>
+        <button  class="primary" mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    
+    <mat-step [stepControl]="thirdFormGroup">
+      <div class="step-content">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Education</ng-template>
+          
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                    required>
+          </mat-form-field>
+        </form>
+      </div>
+      
+      <div class="buttons">
+        <button class="primary mr-4" mat-button matStepperPrevious>Back</button>
+        <button  class="primary" mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step [stepControl]="fourthFormGroup">
+      <div class="step-content">
+        <form [formGroup]="fourthFormGroup">
+          <ng-template matStepLabel>Study options</ng-template>
+          
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                    required>
+          </mat-form-field>
+        </form>
+      </div>
+      
+      <div class="buttons">
+        <button class="primary mr-4" mat-button matStepperPrevious>Back</button>
+        <button  class="primary" mat-button matStepperNext>Next</button>
+      </div>
+      
+    </mat-step>
+
+    <mat-step [stepControl]="fifthFormGroup">
+      <div class="step-content">
+        <form [formGroup]="fifthFormGroup">
+          <ng-template matStepLabel>Documents</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                    required>
+          </mat-form-field>
+        </form>
+      </div>
+      
+      <div class="buttons">
+        <button class="primary mr-4" mat-button matStepperPrevious>Back</button>
+        <button  class="primary" mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      
+      
+      <div class="buttons">
+        <button class="primary mr-4" mat-button matStepperPrevious>Back</button>
+        <button  class="primary" mat-button (click)="onSubmit()">Submit</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="d-flex justify-content-center p-4">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

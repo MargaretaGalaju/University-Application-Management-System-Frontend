@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { RecommendationsDialogComponent } from 'src/app/shared/components/recommendations-dialog/recommendations-dialog.component';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -45,25 +47,17 @@ export class PersonalInformationComponent implements OnInit {
     },
   ];
 
-  constructor() { }
-
   public ngOnInit(): void {
   }
 
-  
   public initForm(user: User): void {
     this.profileForm = new FormGroup({
-      image: new FormControl(user.avatar, [Validators.required]),
-      name: new FormControl(user.name, [Validators.required]),
+      name: new FormControl(user.userName, [Validators.required]),
       gender: new FormControl(user.gender, []),
       email: new FormControl(user.email, [Validators.email]),
       phone: new FormControl(user.phone),
       aboutMe: new FormControl(user.aboutMe),
-      hobbies: new FormControl(user.hobbies.map((v)=> v.title), []),
-      favoriteSpecialties: new FormControl(user.favoriteSpecialties, [])
+      hobbies: new FormControl(user.hobbies.map((h)=>h.title), []),
     });
-
-    console.log(this.profileForm);
-    
   }
 }

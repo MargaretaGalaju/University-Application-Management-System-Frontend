@@ -9,84 +9,74 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   public currentUser: User = {
-    id: 'test',
-    name: 'Margareta Galaju',
-    favoriteSpecialties: [
+    "id": "e7eafabd-bc3c-4d2f-a02b-b15c82a1e94e",
+    "userName": "tanya",
+    "age": 18,
+    "aboutMe": "Nothing interesting",
+    "email": "tanyatsy00@gmail.com",
+    "phone": "+37369033558",
+    "gender": "Fem",
+    "avatar": null,
+    "documents": null,
+    "favoriteSpecialties": [
       {
-        title: 'Software Engineering',
-        id: '123',
-        description: 'lalal description'
+        "id": "08ef38ab-10ea-42a4-bdda-4baf96b01754",
+        "title": "Thermoenergetics",
+        "description": "Short Description"
+      },
+      {
+        "id": "3b54ed4e-7159-410e-b939-7b4d6a26b279",
+        "title": "Geodesy, topography and mapping",
+        "description": "Short Description"
       }
     ],
-    recommendations: [{
-      "facultyTitle": "Faculty of Economic Engineering and Business",
-      "recommendationScore": 66,
-      "specialties": [
-        {
-          "title": "Programm of Applied Informatics",
-          "score": 73,
-          "hobbiesData": [
-            {
-              "hobbyTitle": "math",
-              "score": 100
-            },
-            {
-              "hobbyTitle": "algebra",
-              "score": 100
-            },
-            {
-              "hobbyTitle": "construction",
-              "score": 21
-            }
-          ]
-        },
-        {
-          "title": "Faculty of Computers Informatics and Microelectronics",
-          "score": 73,
-          "hobbiesData": [
-            {
-              "hobbyTitle": "math",
-              "score": 99
-            },
-            {
-              "hobbyTitle": "algebra",
-              "score": 98
-            },
-            {
-              "hobbyTitle": "construction",
-              "score": 23
-            }
-          ]
-        },
-        {
-          "title": "Faculty of Economic Engineering and Business",
-          "score": 66,
-          "hobbiesData": [
-            {
-              "hobbyTitle": "math",
-              "score": 99
-            },
-            {
-              "hobbyTitle": "algebra",
-              "score": 99
-            },
-            {
-              "hobbyTitle": "construction",
-              "score": 0
-            }
-          ]
-        },
-      ]
-    }],
-    hobbies: [
+    "hobbies": [
       {
-        hobbyId: 'test',
-        title: 'Art'
+        "hobbyId": 0,
+        "title": "Food"
+      },
+      {
+        "hobbyId": 35,
+        "title": "Construction"
       }
     ],
-    documents: []
+    "recommendations": [
+      {
+        "facultyTitle": "Faculty of Cadastre, Geodesy and Constructions",
+        "recommendationScore": 50,
+        "specialties": [
+          {
+            "title": "Construction and civil engineering",
+            "score": 49,
+            "hobbiesData": [
+              {
+                "hobbyTitle": "food",
+                "score": 0
+              },
+              {
+                "hobbyTitle": "construction",
+                "score": 98
+              }
+            ]
+          },
+          {
+            "title": "Law",
+            "score": 49,
+            "hobbiesData": [
+              {
+                "hobbyTitle": "food",
+                "score": 0
+              },
+              {
+                "hobbyTitle": "construction",
+                "score": 98
+              }
+            ]
+          }
+        ]
+      }
+    ]
   };
-
 
   constructor(
     private readonly httpClient: HttpClient,

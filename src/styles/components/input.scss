@@ -8,7 +8,7 @@ input {
   font-size: 14px !important;
 }
 
-input::placeholder {
+input[type=date]:invalid::-webkit-datetime-edit {
   color: $borders-color;
 }
 

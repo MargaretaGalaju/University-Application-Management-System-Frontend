@@ -11,14 +11,14 @@
   </div>
 
   <div class="profile-actions align-items-center d-flex">
-    <ng-container *ngIf="isAuthentificated(); else unauthorizedUserTemplate">
-      <button class="button custom mr-2">Apply now</button>
+    <ng-container *ngIf="!isAuthentificated(); else unauthorizedUserTemplate">
+      <button class="button custom mr-2" (click)="openApplicationStepper()">Apply now</button>
 
       <button class="find-faculty button secondary" (click)="openRecommendationsDialog()">Find your faculty</button>
       
       <div class="profile align-items-center d-flex" (click)="goToProfilePage()">
         <mat-icon class="profile-icon" aria-hidden="false" aria-label="options">account_circle</mat-icon>
-        <span class="user-name">{{ user.name }}</span>
+        <span class="user-name">{{ user.userName }}</span>
       </div>
 
       <mat-icon class="logout ml-4" (click)="signout()">logout</mat-icon>

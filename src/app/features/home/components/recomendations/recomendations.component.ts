@@ -1,10 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, interval } from 'rxjs';
+import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { EngineService } from 'src/app/core/services/3d-map/engine.service';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { UserService } from 'src/app/features/profile/services/user.service';
 import { fontSizeChangeAnimation, listAnimation } from 'src/app/shared/animations/animations';
 import { Recommendation } from 'src/app/shared/models/recommendation.model';
 import * as THREE from 'three';
@@ -25,156 +26,163 @@ export class RecomendationsComponent {
   public isLoading = this.loadingService.isLoading$;
   public recommendations$: BehaviorSubject<Recommendation[]> = new BehaviorSubject<Recommendation[]>([]);
   public loaderProgress: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  public recomendations;
+  public recomendations: Recommendation[];
+
+  public destroy$ = new Subject();
 
   constructor(
     private readonly router: Router,
     private readonly engineService: EngineService,
     private readonly facultyApiService: FacultyApiService,
+    private readonly userService: UserService,
     private readonly loadingService: LoadingService,
   ) {
-    this.recomendations = this.router.getCurrentNavigation().extras.state as Recommendation[] || [
-      {
-        "facultyTitle": "Faculty of Economic Engineering and Business",
-        "score": 66,
-        "specialties": [
-          {
-            "title": "Programm of Applied Informatics",
-            "score": 73,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 100
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 100
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 21
-              }
-            ]
-          },
-          {
-            "title": "Faculty of Computers Informatics and Microelectronics",
-            "score": 73,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 99
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 98
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 23
-              }
-            ]
-          },
-          {
-            "title": "Faculty of Economic Engineering and Business",
-            "score": 66,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 99
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 99
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 0
-              }
-            ]
-          },
-        ]
-      },
-      {
-        "facultyTitle": "Faculty of Informatics, Computers and Microelectronics",
-        "score": 66,
-        "specialties": [
-          {
-            "title": "Programm of Accounting",
-            "score": 65,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 97
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 100
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 0
-              }
-            ]
-          },
-          {
-            "title": "Programm of Law",
-            "score": 33,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 0
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 0
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 100
-              }
-            ]
-          },
-          {
-            "title": "Faculty of Cadastre Geodesy and Constructions",
-            "score": 38,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 10
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 5
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 99
-              }
-            ]
-          },
-          {
-            "title": "Programm of Construction and Civil Engineering",
-            "score": 33,
-            "hobbiesData": [
-              {
-                "hobbyTitle": "math",
-                "score": 0
-              },
-              {
-                "hobbyTitle": "algebra",
-                "score": 0
-              },
-              {
-                "hobbyTitle": "construction",
-                "score": 99
-              }
-            ]
-          }
-        ]
-      },
-    ];
-
     this.loaderProgress.next(0);
+    
+    this.userService.getUser().subscribe((user) => {
+      this.recomendations = user.recommendations;
+    }, () => {
+      this.recomendations =[
+        {
+          "facultyTitle": "Faculty of Economic Engineering and Business",
+          "recommendationScore": 66,
+          "specialties": [
+            {
+              "title": "Programm of Applied Informatics",
+              "score": 73,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 100
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 100
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 21
+                }
+              ]
+            },
+            {
+              "title": "Faculty of Computers Informatics and Microelectronics",
+              "score": 73,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 99
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 98
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 23
+                }
+              ]
+            },
+            {
+              "title": "Faculty of Economic Engineering and Business",
+              "score": 66,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 99
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 99
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 0
+                }
+              ]
+            },
+          ]
+        },
+        {
+          "facultyTitle": "Faculty of Informatics, Computers and Microelectronics",
+          "recommendationScore": 66,
+          "specialties": [
+            {
+              "title": "Programm of Accounting",
+              "score": 65,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 97
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 100
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 0
+                }
+              ]
+            },
+            {
+              "title": "Programm of Law",
+              "score": 33,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 0
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 0
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 100
+                }
+              ]
+            },
+            {
+              "title": "Faculty of Cadastre Geodesy and Constructions",
+              "score": 38,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 10
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 5
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 99
+                }
+              ]
+            },
+            {
+              "title": "Programm of Construction and Civil Engineering",
+              "score": 33,
+              "hobbiesData": [
+                {
+                  "hobbyTitle": "math",
+                  "score": 0
+                },
+                {
+                  "hobbyTitle": "algebra",
+                  "score": 0
+                },
+                {
+                  "hobbyTitle": "construction",
+                  "score": 99
+                }
+              ]
+            }
+          ]
+        },
+      ];
+    })
 
     const numbers = interval(45);
     const takeFourNumbers = numbers.pipe(
@@ -191,7 +199,6 @@ export class RecomendationsComponent {
     });
   }
 
-  
   public ngOnInit(): void {
     this.loadingService.startLoading();
     

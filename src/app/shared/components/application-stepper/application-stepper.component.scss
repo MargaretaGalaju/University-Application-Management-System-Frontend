@@ -1,0 +1,102 @@
+@import 'variables';
+
+:host, mat-stepper {
+  background-color: $app-background-color;
+}
+
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+:host {
+  height: 100%;
+  display: flex;
+  width: 100vw;
+
+  .content  {
+    display: flex;
+    height: 100%;
+    width: 100vw;
+    flex-direction: column;
+  }
+}
+
+.step-content {
+  height: 64vh;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  position: relative;
+ 
+  .circle {
+    top:30px;
+    right: 0;
+    position: absolute;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+    &.error {
+      mat-icon {
+        color: #a5a5a5;
+        min-width: 20px;
+        min-height: 20px;
+        font-size: 20px;
+      }
+    }
+    
+    &.check {
+      background-color: $primary-color-pink;
+
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.form {
+  display: grid;
+  grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+  column-gap: 10px;
+  row-gap: 10px;
+  margin: 20px 0;
+
+  .form-group {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+button {
+  color: white !important;
+  justify-content: end;
+  background-color: $primary-color-pink;
+  border-color: $primary-color-pink;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-self: center;
+  cursor: pointer;
+  
+  &:hover {
+    color: white !important;
+  }
+}

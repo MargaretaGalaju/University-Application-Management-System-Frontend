@@ -64,10 +64,6 @@ export class RecommendationsDialogComponent implements OnInit {
 
   public onSubmit(): void {
     this.recommendationApiService.getCustomSpecialtyRecommendations(this.selectedHobbies).subscribe((recommendations) => {
-      this.router.navigate([RouteEnum.recommendations], {
-        state: recommendations,
-      });
-     
       this.dialogRef.close();
     });
   }

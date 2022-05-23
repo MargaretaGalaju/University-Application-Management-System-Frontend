@@ -26,12 +26,36 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
   font-family: Quicksand;
 }
 
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+input[type=date]::-webkit-datetime-edit, ::placeholder {
+  color: $borders-color;
+}
+
+.mat-horizontal-content-container {
+  background-color: white;
+    border-radius: 15px;
+    margin: 0 10px;
+}
+
 html, body, app-root  {
   overflow: hidden;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+mat-tab-group {
+  min-height: 300px;
+
+  .mat-tab-body-wrapper {
+    flex: 1;
+  }
 }
 
 mat-icon {

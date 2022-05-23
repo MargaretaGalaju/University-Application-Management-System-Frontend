@@ -3,6 +3,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RecommendationsDialogComponent } from 'src/app/shared/components/recommendations-dialog/recommendations-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile-layout',
@@ -15,7 +17,8 @@ export class ProfileLayoutComponent implements OnInit {
   public profileForm: FormGroup;
 
   constructor(
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly dialogService: MatDialog
   ) { }
 
   public ngOnInit(): void {
@@ -34,7 +37,12 @@ export class ProfileLayoutComponent implements OnInit {
       email: new FormControl('', [Validators.email]),
       phone: new FormControl(user.phone),
       aboutMe: new FormControl(''),
-      favoriteSpecialties: new FormControl(user.favoriteSpecialties, [])
+      recommendations: new FormControl(user.recommendations, []),
+      favoriteSpecialties: new FormControl(user.favoriteSpecialties.map((v)=> v.title), [])
     });
+  }
+  
+  public getRecommendations() {
+    this.dialogService.open(RecommendationsDialogComponent)
   }
 }

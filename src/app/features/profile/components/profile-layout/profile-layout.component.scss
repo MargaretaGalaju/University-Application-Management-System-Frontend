@@ -45,3 +45,141 @@
 h2 {
   color: #848587;
 }
+
+.loader {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  background-color: white;
+}
+
+.spinner {
+  position: relative;
+
+  span {
+    position: absolute;
+    font-size: 28px;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loading-info {
+  font-size: 22px;
+  width: 80vw;
+  line-height: 1.5;
+}
+
+.faculties {
+  padding: 20px;
+}
+
+.faculty-info {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+
+  &.opened {
+    .header {
+      border-bottom: 1px solid $borders-color;
+      margin-bottom: 10px;
+    }    
+  }
+
+  .header {
+    padding: 10px 20px;
+    display: flex;
+    place-items: center;
+    cursor: pointer;
+
+    span.title {
+      flex: 1;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    mat-icon {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      
+      &.opened {
+        transition: all 0.4s ease;
+        transform: rotateZ(180deg); 
+      }
+    }
+  }
+
+  .content {
+    padding: 10px 20px 20px;
+    max-height: 71vh;
+    overflow: auto;
+    
+    .description {
+      margin-bottom: 20px;
+    }
+
+    .specialty-list {
+      .specialty {
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 1px solid $borders-color;
+        cursor: pointer;
+
+        mat-icon {
+          font-size: 13px;
+          width: 13px;
+          height: 13px;
+
+          &.opened {
+            transition: all 0.4s ease;
+            transform: rotateZ(180deg); 
+          }
+        }
+
+        span.title {
+          font-weight: 500;
+          flex: 1;
+        }
+
+        span.description {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+.specialty-detail {
+  position: relative;
+}
+
+.text {
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  font-size: 13px;
+}
+
+.background {
+  position: absolute;
+  background-color: #dd70cd33;
+  border-radius: 30px;
+  height: 79%;
+  left: 4px;
+}
+
+.recommendations-wrapper {
+  position: absolute;
+  top: 80px;
+  right: 0;
+}

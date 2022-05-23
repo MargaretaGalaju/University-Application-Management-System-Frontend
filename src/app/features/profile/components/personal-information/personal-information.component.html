@@ -1,13 +1,20 @@
-<form [formGroup]="profileForm" class="form">
-  <div class="field" *ngFor="let field of fields">
-    <div class="circle" [ngClass]="profileForm?.get(field.key)?.value ? 'check': 'error'">
-      <mat-icon>{{profileForm?.get(field.key)?.value ? 'check': 'error'}}</mat-icon>
+<form [formGroup]="profileForm">
+  <div  class="form">
+    <div class="field" *ngFor="let field of fields">
+      <div class="circle" [ngClass]="profileForm?.get(field.key)?.value ? 'check': 'error'">
+        <mat-icon>{{profileForm?.get(field.key)?.value ? 'check': 'error'}}</mat-icon>
+      </div>
+  
+      <div class="form-group">
+        <label [for]="field.key">{{field.label}}</label>
+        <input type="text" class="form-control" [formControlName]="field.key">
+      </div>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label [for]="field.key">{{field.label}}</label>
-      <input type="text" class="form-control" [formControlName]="field.key">
-    </div>
+  <div class="form-group">
+    <label>Add your hobbies so we can suggest you more specialties that will be a good match for you!</label>
+    <app-chips-autocomplete formControlName="hobbies" [enableCustomChip]="true" [formGroup]="profileForm"></app-chips-autocomplete>
   </div>
 </form>
 

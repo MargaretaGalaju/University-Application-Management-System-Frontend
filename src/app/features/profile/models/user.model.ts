@@ -5,10 +5,20 @@ import { Specialty } from "src/app/shared/models/specialty.model";
 
 export interface User {
   id: string;
-  name: string;
-  age?: string;
+  name?: string;
+  userName?: string;
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
+  age?: number;
   aboutMe?: string;
   gender?: string;
+  citizenship?: string;
+  nationality?: string;
+  dateOfBirth?: string;
+  placeOfBirth?: string;
+  idCardSeriesNr?: string;
+  idDateOfIssue?: string;
   email?:string;
   phone?: string;
   avatar?: string;
