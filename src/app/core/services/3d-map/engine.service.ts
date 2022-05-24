@@ -31,6 +31,7 @@ export class EngineService {
   public raycaster: THREE.Raycaster;
 
   public lastIntersected: THREE.Object3D;
+  public lastIntersected1: THREE.Object3D;
 
   public initialScenePositions: Vector3;
   public translatedScenePositions: Vector3;
@@ -39,7 +40,8 @@ export class EngineService {
   public initialCameraPositions: Vector3;
   public translatedCameraPositions: Vector3;
   public translatedBackCameraPositions: Vector3;
-
+      
+  public elementToChange;
   public isRecommendationsPage: boolean;
 
   constructor(
@@ -78,7 +80,8 @@ export class EngineService {
       alpha: true,
       antialias: true
     });
-    
+    this.elementToChange = document.getElementsByTagName("body")[0];
+
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.outputEncoding = THREE.sRGBEncoding;
 
@@ -122,10 +125,12 @@ export class EngineService {
 
   public onMouseDown( event ) { 
     this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1; 
-    this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1; 
+    this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
     if (this.isRecommendationsPage) {
       return;
     }
+
     this.raycaster.setFromCamera( this.mouse, this.camera );
 
     let intersects = this.raycaster.intersectObjects( this.scene.children , true );
@@ -162,6 +167,26 @@ export class EngineService {
 
     // this.facultyNames?.forEach((element) => {
     //   element.rotation.z += 0.01;
+    // });
+
+    // this.facultyNames?.forEach((element) => {
+    //   if (element.userData.goUp) {
+    //     element.translateZ(-0.01);
+        
+    //     if(element.position.z = element.userData.maxZ) {
+    //       console.log('d');
+
+    //       element.userData.goUp = false;
+    //     }
+    //   } else {
+    //     element.translateZ(0.01);
+
+    //     if(element.position.z = element.userData.minZ) {
+    //       console.log('te');
+          
+    //       element.userData.goUp = true;
+    //     }
+    //   }
     // });
 
 
@@ -208,15 +233,6 @@ export class EngineService {
     }
   }
 
-// fcim
-// fet
-// feee
-// fmet
-// fft
-// faub
-// fcgd
-// feeb
-// ftp
   public addCity(): void {
     this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city3.glb`).pipe(first()).subscribe((gltf) => {
       const root = gltf.scene;
@@ -270,7 +286,7 @@ export class EngineService {
         }
 
         const facultyName = root.getObjectByName('title'+index);
-        this.facultyNames.push(facultyName)
+        this.facultyNames.push(facultyName);
       }
 
       const box = new THREE.Box3().setFromObject(root);
