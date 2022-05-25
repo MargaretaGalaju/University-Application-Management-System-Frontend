@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteEnum } from 'src/app/core/routes/routes.enum';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { FacultyInfoService } from 'src/app/core/services/faculty-info.service';
 import { listAnimationFast, slideInOutAnimation } from 'src/app/shared/animations/animations';
 
@@ -17,8 +18,13 @@ export class FacultyDetailsComponent implements OnInit {
   public activeFaculty$ = this.facultyInfoService.activeFaculty$;
   public activeSpecialtyId: number;
   public showAnimation = false;
+  
+  public isAuthentificated(): boolean {
+    return this.authService.isAuthenticated();
+  }
 
   constructor(
+    private readonly authService: AuthService,
     private readonly facultyInfoService: FacultyInfoService,
     private readonly router: Router,
   ) { }

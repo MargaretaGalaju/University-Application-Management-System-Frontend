@@ -75,21 +75,19 @@ export class EngineService {
   }
 
   public initSceneConfigurations(): void {
+    this.scene = new THREE.Scene();
+
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       alpha: true,
       antialias: true
     });
-    this.elementToChange = document.getElementsByTagName("body")[0];
 
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.outputEncoding = THREE.sRGBEncoding;
-
-    // @TODO> Add resize window listener
     this.renderer.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
     this.renderer.domElement.addEventListener('click', this.onMouseDown.bind(this));
     
-    this.scene = new THREE.Scene();
 
     const fov = 45;
     const aspect = 2;
@@ -99,13 +97,10 @@ export class EngineService {
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
     this.controls = new OrbitControls( this.camera, this.renderer.domElement );
-
     this.controls.enableZoom = true;
     this.controls.enablePan = true;
     this.controls.enableRotate = !this.isRecommendationsPage;
-
     this.toggleUIControls(true);
-    
     this.controls.update();
     
     this.light = new THREE.AmbientLight( 0xffffff );

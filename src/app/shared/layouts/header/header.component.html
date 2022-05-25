@@ -11,7 +11,7 @@
   </div>
 
   <div class="profile-actions align-items-center d-flex">
-    <ng-container *ngIf="!isAuthentificated(); else unauthorizedUserTemplate">
+    <ng-container *ngIf="isAuthentificated(); else unauthorizedUserTemplate">
       <button class="button custom mr-2" (click)="openApplicationStepper()">Apply now</button>
 
       <button class="find-faculty button secondary" (click)="openRecommendationsDialog()">Find your faculty</button>
