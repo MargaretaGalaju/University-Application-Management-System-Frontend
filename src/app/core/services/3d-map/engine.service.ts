@@ -229,7 +229,7 @@ export class EngineService {
   }
 
   public addCity(): void {
-    this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city3.glb`).pipe(first()).subscribe((gltf) => {
+    this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city1.glb`).pipe(first()).subscribe((gltf) => {
       const root = gltf.scene;
       this.scene.add(root);
 

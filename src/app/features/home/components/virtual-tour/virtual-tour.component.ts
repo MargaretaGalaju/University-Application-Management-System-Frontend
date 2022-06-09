@@ -46,9 +46,9 @@ export class VirtualTourComponent {
       links: panorama.links,
       copyright: 'Unipply (c)',
       tiles: {
-        tileSize: new google.maps.Size(6912, 3456),
-        worldSize: new google.maps.Size(6912, 3456),
-        centerHeading: 105,
+        tileSize: new google.maps.Size(5120, 2560),
+        worldSize: new google.maps.Size(5120, 2560),
+        centerHeading: panorama.centerHeading || 0,
         getTileUrl: () => panorama.imagePath,
       },
     };
