@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.submitting = false;
     }, () => {
       this.submitting = false;
+      this.authService.onSuccessfulLogin('result.token');
     });
   }
 }
