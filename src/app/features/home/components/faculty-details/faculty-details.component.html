@@ -18,12 +18,14 @@
     <div [@listAnimationFast]="faculty?.specialties?.length" class="specialty-list d-flex flex-column">
       <div *ngFor="let specialty of faculty.specialties; let index=index" class="specialty d-flex flex-column">
         <div class="w-100 d-flex">
-          <mat-icon class="star-icon" *ngIf="isAuthentificated()"
-                    (click)="specialty.isFavorite = !specialty.isFavorite">
+          <mat-icon *ngIf="isAuthentificated()"
+                    class="star-icon" 
+                    [ngClass]="{disabled: currentFavSpecialty === specialty.id}"
+                    (click)="toggleFavorite(specialty)">
             {{ specialty.isFavorite ? 'star' : 'star_outline' }}
           </mat-icon>
 
-          <div  (click)="onSpecialtyClick(index)">
+          <div (click)="onSpecialtyClick(index)">
             <span class="title">{{ specialty.title }}</span>
             
             <mat-icon [ngClass]="{opened: index === activeSpecialtyId}">keyboard_arrow_down</mat-icon>

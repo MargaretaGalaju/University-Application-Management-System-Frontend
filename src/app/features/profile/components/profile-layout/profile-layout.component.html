@@ -20,7 +20,11 @@
         </mat-tab>
 
         <mat-tab label="Favorite specialties">
-          // Add a list for the Favorite specialties (integrate endpoints)
+          <div class="d-flex flex-column" *ngIf="favorites">
+            <div class="specialty mb-2" *ngFor="let fav of favorites">
+              {{fav.name}}
+            </div>
+          </div>
         </mat-tab>
 
         <mat-tab label="Education">

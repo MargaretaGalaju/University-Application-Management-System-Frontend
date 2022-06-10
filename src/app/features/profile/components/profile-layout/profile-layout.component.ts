@@ -5,6 +5,7 @@ import { User } from '../../models/user.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecommendationsDialogComponent } from 'src/app/shared/components/recommendations-dialog/recommendations-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
 
 @Component({
   selector: 'app-profile-layout',
@@ -15,10 +16,12 @@ export class ProfileLayoutComponent implements OnInit {
   public user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
  
   public profileForm: FormGroup;
+  public favorites: any;
 
   constructor(
     private readonly userService: UserService,
-    private readonly dialogService: MatDialog
+    private readonly facultyApiService: FacultyApiService,
+    private readonly dialogService: MatDialog,
   ) { }
 
   public ngOnInit(): void {
@@ -26,6 +29,10 @@ export class ProfileLayoutComponent implements OnInit {
       this.user$.next(user);
 
       this.initForm(user);
+    });
+
+    this.facultyApiService.getAllFavorites().subscribe((favorites) => {
+      this.favorites = favorites;
     });
   }
 
@@ -45,4 +52,5 @@ export class ProfileLayoutComponent implements OnInit {
   public getRecommendations() {
     this.dialogService.open(RecommendationsDialogComponent)
   }
+
 }
