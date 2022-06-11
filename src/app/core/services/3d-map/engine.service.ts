@@ -99,7 +99,8 @@ export class EngineService {
     this.controls = new OrbitControls( this.camera, this.renderer.domElement );
     this.controls.enableZoom = true;
     this.controls.enablePan = true;
-    this.controls.enableRotate = !this.isRecommendationsPage;
+    // this.controls.enableRotate = !this.isRecommendationsPage;
+    this.controls.enableRotate = true;
     this.toggleUIControls(true);
     this.controls.update();
     
@@ -209,7 +210,8 @@ export class EngineService {
       this.scene.add(root);
       
       Object.entries(FacultyIdEnum).forEach(([facultyKey, facultyId]) => {
-        const building = root.getObjectByName(facultyKey);
+        const building = root.getObjectByName(facultyKey.toLowerCase());
+        building.scale.set(2,2,2);
         const facultyData = this.faculties.find((faculty) => faculty.id === facultyId);
 
         if (building && facultyData) {
