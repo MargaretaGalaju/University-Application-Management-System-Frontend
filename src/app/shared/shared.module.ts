@@ -14,6 +14,7 @@ import { ChipsAutocompleteComponent } from './components/chips-autocomplete/chip
 import { ApplicationStepperComponent } from './components/application-stepper/application-stepper.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatCheckboxModule,
     MatStepperModule,
     MatInputModule,
     MatProgressSpinnerModule,

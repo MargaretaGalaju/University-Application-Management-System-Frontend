@@ -4,6 +4,7 @@
   background-color: $app-background-color;
 }
 
+
 .mat-stepper-vertical {
   margin-top: 8px;
 }
@@ -27,6 +28,12 @@
 
 .step-content {
   height: 64vh;
+  
+  .wrap {
+    overflow: auto;
+    margin: 20px 0;
+    max-height: 95%;
+  }
 }
 
 .buttons {

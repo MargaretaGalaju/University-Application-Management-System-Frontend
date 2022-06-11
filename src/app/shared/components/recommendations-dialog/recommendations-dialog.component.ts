@@ -63,8 +63,11 @@ export class RecommendationsDialogComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.loadingService.startLoading();
+
     this.recommendationApiService.getCustomSpecialtyRecommendations(this.selectedHobbies).subscribe((recommendations) => {
-      this.dialogRef.close();
+      this.dialogRef.close(true);
+      this.loadingService.stopLoading();
     });
   }
 

@@ -186,13 +186,13 @@ export class RecomendationsComponent {
 
     const numbers = interval(45);
     const takeFourNumbers = numbers.pipe(
-      take(101),
+      take(50),
     );
 
     takeFourNumbers.subscribe((number) => {
       this.loaderProgress.next(number);
       
-      if (number === 100) {
+      if (number === 49) {
         this.loaderProgress.next(0);
         this.recommendations$.next(this.recomendations );
       }
