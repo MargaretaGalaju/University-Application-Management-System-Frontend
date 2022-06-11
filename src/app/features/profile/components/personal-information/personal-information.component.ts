@@ -57,7 +57,7 @@ export class PersonalInformationComponent implements OnInit {
       email: new FormControl(user.email, [Validators.email]),
       phone: new FormControl(user.phone),
       aboutMe: new FormControl(user.aboutMe),
-      hobbies: new FormControl(user.hobbies.map((h)=>h.title), []),
+      hobbies: new FormControl(user.hobbies?.map((h)=>h.title) || [], []),
     });
   }
 }

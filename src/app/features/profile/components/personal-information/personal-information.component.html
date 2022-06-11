@@ -1,4 +1,4 @@
-<form [formGroup]="profileForm">
+<form *ngIf="profileForm" [formGroup]="profileForm" >
   <div  class="form">
     <div class="field" *ngFor="let field of fields">
       <div class="circle" [ngClass]="profileForm?.get(field.key)?.value ? 'check': 'error'">
@@ -18,4 +18,4 @@
   </div>
 </form>
 
-<button type="submit" [disabled]="!profileForm.valid" class="btn">Save info</button>
+<button type="submit" [disabled]="!profileForm?.valid" class="btn">Save info</button>

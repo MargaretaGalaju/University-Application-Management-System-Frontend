@@ -40,12 +40,12 @@ export class ProfileLayoutComponent implements OnInit {
     this.profileForm = new FormGroup({
       image: new FormControl(user.avatar, [Validators.required]),
       name: new FormControl(user.name, [Validators.required]),
-      hobbies: new FormControl(user.hobbies.map((v)=> v.title), [Validators.required]),
+      hobbies: new FormControl(user.hobbies?.map((v)=> v.title) || [], [Validators.required]),
       email: new FormControl('', [Validators.email]),
       phone: new FormControl(user.phone),
       aboutMe: new FormControl(''),
       recommendations: new FormControl(user.recommendations, []),
-      favoriteSpecialties: new FormControl(user.favoriteSpecialties.map((v)=> v.title), [])
+      favoriteSpecialties: new FormControl(user.favoriteSpecialties?.map((v)=> v.title) || [], [])
     });
   }
   

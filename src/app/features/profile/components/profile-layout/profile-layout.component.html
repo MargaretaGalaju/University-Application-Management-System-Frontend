@@ -1,73 +1,76 @@
-<div class="user-wrapper d-flex row" *ngIf="user$ | async as user">
-  <div class="col-sm-12 col-md-3">
-    <div class="section text-center">
-      <div class="logo d-flex align-items-center justify-content-center" (click)="image.click()">
-        <mat-icon>upload</mat-icon>
-        <input #image class="logo-upload" type="file" accept="image/*">
-      </div>
-      
-      <div class="user-info">
-        <h2>{{ user.userName }}</h2>
+<div *ngIf="profileForm" class="h-100">
+  <div class="user-wrapper d-flex row" *ngIf="user$ | async as user">
+    <div class="col-sm-12 col-md-3">
+      <div class="section text-center">
+        <div class="logo d-flex align-items-center justify-content-center" (click)="image.click()">
+          <mat-icon>upload</mat-icon>
+          <input #image class="logo-upload" type="file" accept="image/*">
+        </div>
+
+        <div class="user-info">
+          <h2>{{ user.userName }}</h2>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="col-sm-12 col-md-9">
-    <div class="section">
-      <mat-tab-group>
-        <mat-tab label="Personal Information">
-          <app-personal-information [user]="user"></app-personal-information>
-        </mat-tab>
 
-        <mat-tab label="Favorite specialties">
-          <div class="d-flex flex-column" *ngIf="favorites">
-            <div class="specialty mb-2" *ngFor="let fav of favorites">
-              - {{ fav.title }}
-            </div>
-          </div>
-        </mat-tab>
+    <div class="col-sm-12 col-md-9">
+      <div class="section">
+        <mat-tab-group>
+          <mat-tab label="Personal Information">
+            <app-personal-information [user]="user"></app-personal-information>
+          </mat-tab>
 
-        <mat-tab label="Education">
-          // upload documents, education (school)
-        </mat-tab>
-
-        <mat-tab label="Application History">
-          // after we create application modal, and we did the apply request, tam ona poiavitsea cac 
-          
-          13/03/2022 Apllication
-          - Specialty of lala, status: in progress (button: Get details)
-        </mat-tab>
-
-        <mat-tab label="Recommendations">
-          <div *ngIf="profileForm.get('recommendations')?.value?.length; else noRecommendations" class="faculties">
-            <div *ngFor="let faculty of profileForm.get('recommendations')?.value; let index=index" 
-                  class="faculty-info" 
-                  [ngClass]="{ opened: faculty.opened }"
-                  (click)="faculty.opened = !faculty.opened">
-              <div class="header">
-                <span class="title"> {{ faculty.facultyTitle }}</span>
-                <mat-icon [ngClass]="{ opened: faculty.opened }">keyboard_arrow_down</mat-icon>
+          <mat-tab label="Favorite specialties">
+            <div class="d-flex flex-column" *ngIf="favorites">
+              <div class="specialty mb-2" *ngFor="let fav of favorites">
+                - {{ fav.title }}
               </div>
-
-              <ng-container *ngIf="faculty.opened">
-                <div *ngFor="let specialty of faculty.specialties" class="specialty-detail">
-                  <div class="background" [style]="'width: calc('+ specialty.score +'% - 10px)'"></div>
-
-                  <div class="text d-flex justify-content-between">
-                    <span class="font-weight-semi-bold">{{ specialty.title }}</span>
-                    <span class="font-weight-bold justify-content-end">{{ specialty.score }}%</span>
-                  </div>
-                </div>
-              </ng-container>
             </div>
-          </div>
-        
-          <ng-template #noRecommendations>
-            <label class="mb-2">Don't know where to apply? We will help you! Just introduce your hobbies, and get personal specialty recommendations jsut for you!</label>
-            <button class="button w-100 primary" (click)="getRecommendations()">Get recommendations</button>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
+          </mat-tab>
+
+          <mat-tab label="Education">
+            // upload documents, education (school)
+          </mat-tab>
+
+          <mat-tab label="Application History">
+            // after we create application modal, and we did the apply request, tam ona poiavitsea cac
+
+            13/03/2022 Apllication
+            - Specialty of lala, status: in progress (button: Get details)
+          </mat-tab>
+
+          <mat-tab label="Recommendations">
+            <div *ngIf="profileForm?.get('recommendations')?.value?.length; else noRecommendations" class="faculties">
+              <div *ngFor="let faculty of profileForm.get('recommendations')?.value; let index=index"
+                   class="faculty-info"
+                   [ngClass]="{ opened: faculty.opened }"
+                   (click)="faculty.opened = !faculty.opened">
+                <div class="header">
+                  <span class="title"> {{ faculty.facultyTitle }}</span>
+                  <mat-icon [ngClass]="{ opened: faculty.opened }">keyboard_arrow_down</mat-icon>
+                </div>
+
+                <ng-container *ngIf="faculty.opened">
+                  <div *ngFor="let specialty of faculty.specialties" class="specialty-detail">
+                    <div class="background" [style]="'width: calc('+ specialty.score +'% - 10px)'"></div>
+
+                    <div class="text d-flex justify-content-between">
+                      <span class="font-weight-semi-bold">{{ specialty.title }}</span>
+                      <span class="font-weight-bold justify-content-end">{{ specialty.score }}%</span>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+            <ng-template #noRecommendations>
+              <label class="mb-2">Don't know where to apply? We will help you! Just introduce your hobbies, and get personal specialty recommendations jsut for you!</label>
+              <button class="button w-100 primary" (click)="getRecommendations()">Get recommendations</button>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
     </div>
   </div>
+
 </div>

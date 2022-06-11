@@ -68,6 +68,8 @@ export class HeaderComponent extends DestroyBase implements OnInit {
   public ngOnInit(): void {
     this.userService.getUser().subscribe((user) => {
       this.user = user;
+      this.cdr.detectChanges()
+      this.cdr.markForCheck()
     });
   }
 
