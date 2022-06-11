@@ -18,4 +18,4 @@
   </div>
 </form>
 
-<button type="submit" [disabled]="!profileForm?.valid" class="btn">Save info</button>
+<button type="submit" [disabled]="!profileForm?.valid" class="btn" (click)="save()">Save info</button>

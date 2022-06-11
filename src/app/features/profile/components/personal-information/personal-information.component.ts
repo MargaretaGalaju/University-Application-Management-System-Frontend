@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RecommendationsDialogComponent } from 'src/app/shared/components/recommendations-dialog/recommendations-dialog.component';
 import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-personal-information',
@@ -47,6 +49,11 @@ export class PersonalInformationComponent implements OnInit {
     },
   ];
 
+  constructor(
+    private userService:UserService,
+    private matSnackBar:MatSnackBar,
+  ) { }
+
   public ngOnInit(): void {
   }
 
@@ -59,5 +66,11 @@ export class PersonalInformationComponent implements OnInit {
       aboutMe: new FormControl(user.aboutMe),
       hobbies: new FormControl(user.hobbies?.map((h)=>h.title) || [], []),
     });
+  }
+
+  public save(): void {
+    this.userService.postUser(this.profileForm.value).subscribe(() => {
+      this.matSnackBar.open('Profile Updated Successfully!')
+    })
   }
 }

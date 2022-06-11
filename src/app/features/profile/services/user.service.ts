@@ -38,4 +38,8 @@ export class UserService {
   public submitApplication(data) {
     return this.httpClient.post<any>(`${environment.baseUrl}/user/application`, data);
   }
+
+  public postUser(user) {
+    return this.httpClient.post(`${environment.baseUrl}/user`, user)
+  }
 }
