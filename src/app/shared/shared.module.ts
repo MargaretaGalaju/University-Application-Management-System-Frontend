@@ -15,6 +15,7 @@ import { ApplicationStepperComponent } from './components/application-stepper/ap
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatStepperModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   exports: [
     HeaderComponent,
@@ -47,6 +49,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatProgressSpinnerModule,
     ChipsAutocompleteComponent,
+  ],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
   ]
 })
 export class SharedModule { }

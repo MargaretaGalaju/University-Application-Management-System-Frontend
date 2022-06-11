@@ -97,4 +97,8 @@ export class UserService {
   public removeFromFavoriteSpecialties(specialtyId: string) {
     return this.httpClient.delete(`${environment.baseUrl}/user/favorites/${specialtyId}`);
   }
+  
+  public submitApplication(data) {
+    return this.httpClient.post<any>(`${environment.baseUrl}/user/application`, data);
+  }
 }

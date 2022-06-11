@@ -211,7 +211,6 @@ export class EngineService {
       
       Object.entries(FacultyIdEnum).forEach(([facultyKey, facultyId]) => {
         const building = root.getObjectByName(facultyKey.toLowerCase());
-        building.scale.set(2,2,2);
         const facultyData = this.faculties.find((faculty) => faculty.id === facultyId);
 
         if (building && facultyData) {

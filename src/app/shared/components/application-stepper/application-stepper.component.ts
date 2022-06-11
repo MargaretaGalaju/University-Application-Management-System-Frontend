@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
@@ -54,6 +54,7 @@ export class ApplicationStepperComponent implements OnInit {
     private readonly userService: UserService,
     private readonly facultyApiService: FacultyApiService,
     private readonly loadingService: LoadingService,
+    private _snackBar: MatSnackBar
   ) { }
 
   public ngOnInit(): void {
@@ -158,8 +159,34 @@ export class ApplicationStepperComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    // this.recommendationApiService.getCustomSpecialtyRecommendations(this.selectedHobbies).subscribe((recommendations) => {
-    //   this.dialogRef.close();
-    // });
+    if (!this.userService.currentUser?.hobbies?.length) {
+      return;
+    }
+
+    const choosedSpecialties = [];
+    this.tasks.forEach((task) => {
+      task.subtasks.forEach((subtask) => {
+        if (subtask.checked) {
+          choosedSpecialties.push(subtask.name);
+        }
+      })
+    });
+    const hobbbies = this.userService.currentUser?.hobbies.map((hobby) => hobby.title);
+    
+    const finalData = [];
+
+    hobbbies.forEach((hobby) => {
+      choosedSpecialties.forEach((specialtyTitile) => {
+        finalData.push({
+          hobby,
+          specialtyTitile,
+        });
+      });
+    });
+
+    this.userService.submitApplication(finalData).subscribe(() => {
+      this._snackBar.open('Successfully applied!');
+      this.router.navigateByUrl(`/home`);
+    });
   }
 }
