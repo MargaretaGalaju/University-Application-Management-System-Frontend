@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 
@@ -19,7 +20,11 @@ export class UserService {
       return of(this.currentUser);
     }
 
-    return this.httpClient.get<User>(`${environment.baseUrl}/user`);
+    return this.httpClient.get<User>(`${environment.baseUrl}/user`).pipe(
+      tap((user) => {
+        this.currentUser = user
+      })
+    );
   }
 
   public addToFavoriteSpecialties(specialtyId: string) {
