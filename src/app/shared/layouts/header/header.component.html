@@ -5,8 +5,8 @@
   </div>
 
   <div class="nav-items flex-grow-1 d-flex justify-content-start ml-4">
-    <a *ngFor="let navItem of navItems" class="item" [routerLink]="'/' + navItem.navigateUrl" [ngClass]="{active: navItem.navigateUrl === (currentRoute$ | async)}">
-      {{ navItem.title }}
+    <a *ngFor="let navItem of navItems" class="item" [ngClass]="{hide: navItem.hide}" [routerLink]="'/' + navItem.navigateUrl" [ngClass]="{active: navItem.navigateUrl === (currentRoute$ | async)}">
+      <ng-container *ngIf="!navItem.hide">{{ navItem.title }}</ng-container>
     </a>
   </div>
 

@@ -8,6 +8,7 @@ import { FacultyInfoService } from '../faculty-info.service';
 import { Vector3 } from 'three';
 import { Faculty } from 'src/app/shared/models/faculty.model';
 import { LoadingService } from '../loading.service';
+import { FacultyIdEnum } from '../../constants/faculty-id.enum';
 
 @Injectable()
 export class EngineService {
@@ -23,7 +24,6 @@ export class EngineService {
   public isLoading = true;
   public frameId: number = null;
 
-  public facultyNames: THREE.Object3D<THREE.Event>[] = [];
   public buildings: THREE.Object3D<THREE.Event>[] = [];
   public faculties: Faculty[] = [];
 
@@ -160,31 +160,6 @@ export class EngineService {
       this.render();
     });
 
-    // this.facultyNames?.forEach((element) => {
-    //   element.rotation.z += 0.01;
-    // });
-
-    // this.facultyNames?.forEach((element) => {
-    //   if (element.userData.goUp) {
-    //     element.translateZ(-0.01);
-        
-    //     if(element.position.z = element.userData.maxZ) {
-    //       console.log('d');
-
-    //       element.userData.goUp = false;
-    //     }
-    //   } else {
-    //     element.translateZ(0.01);
-
-    //     if(element.position.z = element.userData.minZ) {
-    //       console.log('te');
-          
-    //       element.userData.goUp = true;
-    //     }
-    //   }
-    // });
-
-
     if (this.translatedScenePositions && this.translatedScenePositions.x !== this.scene.position.x && this.translatedScenePositions.z !== this.scene.position.z) {
       if (this.scene.position.x >= this.translatedScenePositions.x) {
         this.scene.position.x -= 0.2;
@@ -232,57 +207,16 @@ export class EngineService {
     this.objectLoader.getGLTFObject(`assets/gltf-objects/Unipply-city1.glb`).pipe(first()).subscribe((gltf) => {
       const root = gltf.scene;
       this.scene.add(root);
+      
+      Object.entries(FacultyIdEnum).forEach(([facultyKey, facultyId]) => {
+        const building = root.getObjectByName(facultyKey);
+        const facultyData = this.faculties.find((faculty) => faculty.id === facultyId);
 
-      for (let index = 0; index < 9; index++) {
-        const building = root.getObjectByName('bloc'+index);
-
-        if (building) {
-          // @TODO: change to real data from BE
-          const facultyData: Faculty = this.faculties[index] || {
-            title: 'Faculty\'s title with index ' + index,
-            description: 'Some random description tralalaalalla',
-            id: 'bla-bla-id-' + index,
-            specialties: [
-              {
-                id: '1',
-                title: 'Software Engineering',
-                description: 'You never know how you\'ll like it ' ,
-              },
-              {
-                id: '2',
-                title: 'Mechanical Electronics',
-                description: 'You never know how you\'ll like it' ,
-              },
-              {
-                id: '2',
-                title: 'Mechanical Electronics',
-                description: 'You never know how you\'ll like it' ,
-              },
-              {
-                id: '2',
-                title: 'Mechanical Electronics',
-                description: 'You never know how you\'ll like it' ,
-              },
-              {
-                id: '2',
-                title: 'Mechanical Electronics',
-                description: 'You never know how you\'ll like it' ,
-              },
-              {
-                id: '2',
-                title: 'Mechanical Electronics',
-                description: 'You never know how you\'ll like it' ,
-              },
-            ],
-          };
-
+        if (building && facultyData) {
           building.userData = facultyData;
           this.buildings.push(building);
         }
-
-        const facultyName = root.getObjectByName('title'+index);
-        this.facultyNames.push(facultyName);
-      }
+      });
 
       const box = new THREE.Box3().setFromObject(root);
       const boxSize = box.getSize(new THREE.Vector3())

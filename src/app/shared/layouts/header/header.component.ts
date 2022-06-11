@@ -15,6 +15,7 @@ import { RecommendationsDialogComponent } from '../../components/recommendations
 interface NavItem {
   title: string;
   navigateUrl: string;
+  hide?: boolean;
 }
 @Component({
   selector: 'app-header',
@@ -35,6 +36,7 @@ export class HeaderComponent extends DestroyBase implements OnInit {
     {
       title: 'Application process',
       navigateUrl: RouteEnum.applicationProcess,
+      hide: !this.isAuthentificated(),
     },
   ];
 
