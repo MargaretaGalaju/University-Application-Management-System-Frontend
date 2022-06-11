@@ -13,6 +13,7 @@
           [ngClass]="{ opened: faculty.opened }"
           (click)="faculty.opened = !faculty.opened">
       <div class="header">
+       
         <span class="title"> {{ faculty.facultyTitle }}</span>
         <mat-icon [ngClass]="{ opened: faculty.opened }">keyboard_arrow_down</mat-icon>
       </div>
@@ -22,6 +23,11 @@
           <div class="background" [style]="'width: calc('+ specialty.score +'% - 10px)'"></div>
 
           <div class="text d-flex justify-content-between">
+            <mat-icon class="star-icon" 
+                      [ngClass]="{disabled: currentFavSpecialty === specialty.id}"
+                      (click)="toggleFavorite(specialty)">
+                       {{ specialty.isFavorite ? 'star' : 'star_outline' }}
+            </mat-icon>
             <span class="font-weight-semi-bold">{{ specialty.title }}</span>
             <span class="font-weight-bold justify-content-end">{{ specialty.score }}%</span>
           </div>

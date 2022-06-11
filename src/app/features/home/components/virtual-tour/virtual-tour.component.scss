@@ -8,3 +8,16 @@
   top: 100px;
   left: 20px;
 }
+
+.faculties {
+  z-index: 100;
+  position: absolute;
+  top: 100px;
+  right: 20px;
+}
+
+:host ::ng-deep {
+  .mat-form-field-flex {
+    background: white;
+  }
+}

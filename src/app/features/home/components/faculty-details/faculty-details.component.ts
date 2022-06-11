@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { FacultyIdEnum } from 'src/app/core/constants/faculty-id.enum';
 import { RouteEnum } from 'src/app/core/routes/routes.enum';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
@@ -58,7 +59,9 @@ export class FacultyDetailsComponent implements OnInit {
   }
 
   public makeVirtualTour(facultyId: string) {
-    this.router.navigateByUrl(`${RouteEnum.virtualTour}/${facultyId}`);
+    this.router.navigateByUrl(`${RouteEnum.virtualTour}/${facultyId}`, {state: {
+      facultyCode: Object.entries(FacultyIdEnum).find(([key, value]) => value === facultyId)[0],
+    }});
   }
 
   public closeFacultyCard(): void {

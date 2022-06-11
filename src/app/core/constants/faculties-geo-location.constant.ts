@@ -1,12 +1,8 @@
-export const fcim = {
-  initialAvailableGeoPosition: {
-    lat: 47.061577,
-    long: 28.868170,
-  },
-  additionalPanoramas: [
+export const panoramas = {
+  fcim: [
     {
       imagePath: '/assets/panoramas/fcim/1.jpg',
-      pano: 'first', // The ID for this custom this.panorama.
+      pano: 'fcim_first', // The ID for this custom this.panorama.
       description: 'First',
       position: {
         lat:  47.061621,
@@ -106,30 +102,70 @@ export const fcim = {
         {
           heading: 270,
           description: 'go to floor 2',
-          pano: 'ffcim_corridor3-1',
+          pano: 'fcim_corridor5_1',
         },
       ],
     },
     {
       imagePath: '/assets/panoramas/fcim/5_1.jpg',
-      pano: 'fcim_corridor3-1', // The ID for this custom this.panorama.
+      pano: 'fcim_corridor5_1', // The ID for this custom this.panorama.
       description: 'Etajul 2',
       position: {
         lat: 47.062118,
         long: 28.868110,
       },
-      centerHeading: 180,
+      centerHeading: 90,
+      links: [
+        {
+          heading: 270,
+          description: 'FCIM third corridor',
+          pano: 'fcim_corridor3',
+        },
+        {
+          heading: 90,
+          description: 'FCIM third corridor',
+          pano: 'fcim_corridor5_2',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fcim/5_2.jpg',
+      pano: 'fcim_corridor5_2', // The ID for this custom this.panorama.
+      description: 'Etajul 2',
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      centerHeading: 0,
+      links: [
+        {
+          heading: 270,
+          description: 'FCIM third corridor',
+          pano: 'fcim_corridor5_1',
+        },
+        {
+          heading: 180,
+          description: 'FCIM third corridor',
+          pano: 'fcim_corridor5_3',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fcim/5_3.jpg',
+      pano: 'fcim_corridor5_3', // The ID for this custom this.panorama.
+      description: 'Etajul 2 3',
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      centerHeading: 0,
       links: [
         {
           heading: 0,
           description: 'FCIM third corridor',
-          pano: 'fcim_corridor3',
+          pano: 'fcim_corridor5_2',
         },
-        // {
-        //   heading: 180,
-        //   description: 'back to first corridor',
-        //   pano: 'fcim_corridor2',
-        // },
+        
       ],
     },
     {
@@ -198,7 +234,6 @@ export const fcim = {
         },
       ],
     },
-    
     {
       imagePath: '/assets/panoramas/fcim/9.jpg',
       pano: 'fcim_corridor7', // The ID for this custom this.panorama.
@@ -238,32 +273,216 @@ export const fcim = {
         },
       ],
     },
+  ],
+  fet: [
+    {
+      imagePath: '/assets/panoramas/fet/1.jpg',
+      pano: 'fet_first', // The ID for this custom this.panorama.
+      description: 'fet First',
+      position: {
+        lat:  47.061621,
+        long: 28.867827,
+      },
+      links: [
+        {
+          heading: 0,
+          description: 'FET first',
+          pano: 'fet',
+        }
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fet/2.jpg',
+      pano: 'fet', // The ID for this custom this.panorama.
+      description: 'Entrance of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.061606,
+        long: 28.867924,
+      },
+      links: [
+        {
+          heading: 0,
+          description: 'fet first corridor',
+          pano: 'fet_corridor1',
+        },
+        {
+          heading: 180,
+          description: 'back to entrance',
+          pano: 'first',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fet/3.jpg',
+      pano: 'fet_corridor1', // The ID for this custom this.panorama.
+      description: 'Corridor 1 of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.061918,
+        long: 28.868000,
+      },
+      links: [
+        {
+          heading: 0,
+          description: 'fet second corridor',
+          pano: 'fet_4',
+        },
+        {
+          heading: 180,
+          description: 'back to entrance',
+          pano: 'fet',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fet/4.jpg',
+      pano: 'fet_4', // The ID for this custom this.panorama.
+      description: 'Corridor 2 of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      links: [
+        {
+          heading: 180,
+          description: 'fet third corridor',
+          pano: 'fet_4_1',
+        },
+        {
+          heading: 120,
+          description: 'back to first corridor',
+          pano: 'fet_5',
+        },
+        {
+          heading: 60,
+          description: 'fet third corridor',
+          pano: 'fet_corridor1',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fet/4_1.jpg',
+      pano: 'fet_4_1', // The ID for this custom this.panorama.
+      description: 'Corridor 2 of Faculty of Technical University of Moldova',
+      centerHeading: 0,
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      links: [
+        {
+          heading: 0,
+          description: 'fet third corridor',
+          pano: 'fet_4',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fet/5.jpg',
+      pano: 'fet_5', // The ID for this custom this.panorama.
+      description: 'Corridor 2 of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      links: [
+        {
+          heading: 0,
+          description: 'fet third corridor',
+          pano: 'fet_5_1',
+        },
+        {
+          heading: 270,
+          description: 'back to first corridor',
+          pano: 'fet_4',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fet/5_1.jpg',
+      pano: 'fet_5_1', // The ID for this custom this.panorama.
+      description: 'Corridor 2 of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      links: [
+        {
+          heading: 180,
+          description: 'fet third corridor',
+          pano: 'fet_5',
+        },
+      ],
+    },
     // {
-    //   imagePath: '/assets/panoramas/fcim/entrance.JPG',
+    //   imagePath: '/assets/panoramas/fcim/5.jpg',
     //   pano: 'fcim_corridor3', // The ID for this custom this.panorama.
-    //   description: 'Corridor 3 of Faculty of Technical University of Moldova',
+    //   description: 'Corridor 2 of Faculty of Technical University of Moldova',
     //   position: {
-    //     lat: 47.062578,
-    //     long: 28.868310,
-    //   }
+    //     lat: 47.062118,
+    //     long: 28.868110,
+    //   },
+    //   centerHeading: 180,
+    //   links: [
+    //     {
+    //       heading: 0,
+    //       description: 'FCIM third corridor',
+    //       pano: 'fcim_corridor4',
+    //     },
+    //     {
+    //       heading: 180,
+    //       description: 'back to first corridor',
+    //       pano: 'fcim_corridor2',
+    //     },
+    //     {
+    //       heading: 270,
+    //       description: 'go to floor 2',
+    //       pano: 'fcim_corridor5_1',
+    //     },
+    //   ],
     // },
     // {
-    //   imagePath: '/assets/panoramas/fcim/entrance.JPG',
-    //   pano: 'fcim_class1', // The ID for this custom this.panorama.
-    //   description: 'Classrom 1 of Faculty of Technical University of Moldova',
+    //   imagePath: '/assets/panoramas/fcim/5_1.jpg',
+    //   pano: 'fcim_corridor5_1', // The ID for this custom this.panorama.
+    //   description: 'Etajul 2',
     //   position: {
-    //     lat: 47.062588,
-    //     long: 28.868270,
-    //   }
+    //     lat: 47.062118,
+    //     long: 28.868110,
+    //   },
+    //   centerHeading: 90,
+    //   links: [
+    //     {
+    //       heading: 270,
+    //       description: 'FCIM third corridor',
+    //       pano: 'fcim_corridor3',
+    //     },
+    //     {
+    //       heading: 90,
+    //       description: 'FCIM third corridor',
+    //       pano: 'fcim_corridor5_2',
+    //     },
+    //   ],
     // },
     // {
-    //   imagePath: '/assets/panoramas/fcim/entrance.JPG',
-    //   pano: 'fcim_class2', // The ID for this custom this.panorama.
-    //   description: 'Classrom 2 of Faculty of Technical University of Moldova',
+    //   imagePath: '/assets/panoramas/fcim/5_2.jpg',
+    //   pano: 'fcim_corridor5_2', // The ID for this custom this.panorama.
+    //   description: 'Etajul 2',
     //   position: {
-    //     lat: 47.062588,
-    //     long: 28.868390,
-    //   }
+    //     lat: 47.062118,
+    //     long: 28.868110,
+    //   },
+    //   centerHeading: 0,
+    //   links: [
+    //     {
+    //       heading: 270,
+    //       description: 'FCIM third corridor',
+    //       pano: 'fcim_corridor5_1',
+    //     },
+    //     {
+    //       heading: 180,
+    //       description: 'FCIM third corridor',
+    //       pano: 'fcim_corridor5_3',
+    //     },
+    //   ],
     // },
   ]
 }

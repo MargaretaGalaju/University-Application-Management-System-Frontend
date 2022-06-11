@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { fcim } from 'src/app/core/constants/faculties-geo-location.constant';
+import { panoramas } from 'src/app/core/constants/faculties-geo-location.constant';
 import { EngineService } from 'src/app/core/services/3d-map/engine.service';
 import { Faculty } from 'src/app/shared/models/faculty.model';
 
@@ -27,14 +27,24 @@ export class VirtualTourComponent {
   
   public panorama: google.maps.StreetViewPanorama;
 
+  public selectedFaculty = 'fcim';
+
+  public availableFaculties = Object.keys(panoramas);
+
   constructor(
     private router: Router,
-  ) {
+  ) { 
+    const facultyCode = this.router?.getCurrentNavigation()?.extras?.state?.facultyCode;
+
+    if (facultyCode && this.availableFaculties.includes(facultyCode)) {
+      this.selectedFaculty = facultyCode;
+    }
+
     new google.maps.StreetViewService()
     .getPanorama({ location: { lat: 47.061621, lng: 28.867827 }}, (data) => {
-      this.initPanorama();
+      this.initPanorama(this.selectedFaculty);
     });
-   }
+  }
 
   public getAdditionalPanorama(panorama): google.maps.StreetViewPanoramaData {
     return {
@@ -54,18 +64,18 @@ export class VirtualTourComponent {
     };
   }
   
-  public initPanorama(): void {
+  public initPanorama(facultyCode: string): void {
     this.panorama = new google.maps.StreetViewPanorama(
       document.getElementById('street-view') as HTMLElement,
-      { pano: 'first', visible: true }
+      { pano: `${facultyCode}_first`, visible: true }
     );
 
     this.panorama.registerPanoProvider(() => {
-      return this.getAdditionalPanorama(fcim.additionalPanoramas[0]);
+      return this.getAdditionalPanorama(panoramas[facultyCode][0]);
     });
   
     this.panorama.addListener('pano_changed', () => {
-      const newPano = fcim.additionalPanoramas.find((p) => p.pano === this.panorama.getPano())
+      const newPano = panoramas[facultyCode].find((p) => p.pano === this.panorama.getPano())
       
       if (newPano) {
         this.panorama.registerPanoProvider(() => {
@@ -75,7 +85,7 @@ export class VirtualTourComponent {
     })
 
     this.panorama.addListener('links_changed', () => {
-      const currentPano = fcim.additionalPanoramas.find((p) => p.pano === this.panorama.getPano())
+      const currentPano = panoramas[facultyCode].find((p) => p.pano === this.panorama.getPano())
 
       if (!!currentPano) {
         this.panorama.getLinks().push(...currentPano.links);
@@ -85,5 +95,11 @@ export class VirtualTourComponent {
 
   public navigateBack() {
     this.router.navigateByUrl('/');
+  }
+
+  public onFacultyChange(event) {
+    this.selectedFaculty = event.value;
+
+    this.initPanorama(this.selectedFaculty);
   }
 }

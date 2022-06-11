@@ -29,6 +29,7 @@ export class RecomendationsComponent {
   public recomendations: Recommendation[];
 
   public destroy$ = new Subject();
+  public currentFavSpecialty: string;
 
   constructor(
     private readonly router: Router,
@@ -186,15 +187,15 @@ export class RecomendationsComponent {
       ];
     })
 
-    const numbers = interval(45);
+    const numbers = interval(10);
     const takeFourNumbers = numbers.pipe(
-      take(50),
+      take(101),
     );
 
     takeFourNumbers.subscribe((number) => {
       this.loaderProgress.next(number);
       
-      if (number === 49) {
+      if (number === 100) {
         this.loaderProgress.next(0);
         this.recommendations$.next(this.recomendations);
       }
@@ -229,5 +230,20 @@ export class RecomendationsComponent {
     
     this.engineService.mouse = new THREE.Vector2();
     this.engineService.raycaster = new THREE.Raycaster();
+  }
+
+  
+  public toggleFavorite(specialty): void {
+    this.currentFavSpecialty = specialty.id;
+
+    this.facultyApiService[specialty.isFavorite ? 'deleteFromFavorites' : 'addToFavorites'](specialty.id).subscribe({
+      next: () => {
+        this.currentFavSpecialty = null;
+        specialty.isFavorite = !specialty.isFavorite;
+      },
+      error: () => {
+        this.currentFavSpecialty = null;
+      }
+    })
   }
 }

@@ -3,3 +3,15 @@
 <div class="go-back">
   <button class="custom" (click)="navigateBack()">Go back</button>
 </div>
+
+<div class="faculties">
+  <mat-form-field appearance="fill">
+    <mat-label>Available faculties</mat-label>
+    
+    <mat-select (selectionChange)="onFacultyChange($event)" [(value)]="selectedFaculty">
+      <mat-option *ngFor="let availableFaculty of availableFaculties" [value]="availableFaculty">
+        {{ availableFaculty }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

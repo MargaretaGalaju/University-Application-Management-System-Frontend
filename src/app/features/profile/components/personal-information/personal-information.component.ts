@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RecommendationsDialogComponent } from 'src/app/shared/components/recommendations-dialog/recommendations-dialog.component';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
@@ -77,7 +75,12 @@ export class PersonalInformationComponent implements OnInit {
     }));
 
     this.userService.postUser(data).subscribe(() => {
-      this.matSnackBar.open('Profile Updated Successfully!')
+      this.matSnackBar.open('Profile Updated Successfully!');
+     
+      this.userService.currentUser = {
+        ...this.userService.currentUser,
+        ...data,
+      }
     })
   }
 }
