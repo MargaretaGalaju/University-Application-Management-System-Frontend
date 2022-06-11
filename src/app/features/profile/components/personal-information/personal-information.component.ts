@@ -69,7 +69,14 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   public save(): void {
-    this.userService.postUser(this.profileForm.value).subscribe(() => {
+    const data = this.profileForm.value;
+
+    data.hobbies = data.hobbies.map((hobby) => ({
+      hobbyId: null,
+      title: hobby,
+    }));
+
+    this.userService.postUser(data).subscribe(() => {
       this.matSnackBar.open('Profile Updated Successfully!')
     })
   }
