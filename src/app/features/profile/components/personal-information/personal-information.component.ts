@@ -69,9 +69,9 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   public save(): void {
-    const data = this.profileForm.value;
+    const data = [...this.profileForm.value];
 
-    data.hobbies = data.hobbies.map((hobby) => ({
+    data['hobbies'] = this.profileForm.value.hobbies.map((hobby) => ({
       hobbyId: null,
       title: hobby,
     }));
