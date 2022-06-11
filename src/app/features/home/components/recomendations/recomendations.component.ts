@@ -40,6 +40,8 @@ export class RecomendationsComponent {
     this.loaderProgress.next(0);
     
     this.userService.getUser().subscribe((user) => {
+      const extra = this.router?.getCurrentNavigation()?.extras?.state as Recommendation[];
+      
       this.recomendations = user.recommendations;
     }, () => {
       this.recomendations =[
@@ -194,7 +196,7 @@ export class RecomendationsComponent {
       
       if (number === 49) {
         this.loaderProgress.next(0);
-        this.recommendations$.next(this.recomendations );
+        this.recommendations$.next(this.recomendations);
       }
     });
   }
