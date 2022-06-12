@@ -49,8 +49,10 @@
     }
 
     .specialty-list {
-      margin-left: 30px;
 
+      &.favorites {
+      margin-left: 30px;
+      }
       .specialty {
         align-items: center;
         padding: 5px 0;

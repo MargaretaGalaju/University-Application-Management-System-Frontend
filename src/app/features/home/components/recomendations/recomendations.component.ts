@@ -41,11 +41,12 @@ export class RecomendationsComponent {
     this.loaderProgress.next(0);
     
     this.userService.getUser().subscribe((user) => {
-      const extra = this.router?.getCurrentNavigation()?.extras?.state as Recommendation[];
+      const extraRecommendations = this.router?.getCurrentNavigation()?.extras?.state?.recommendations as Recommendation[];
       
-      this.recomendations = user.recommendations;
+      this.recomendations = extraRecommendations || user.recommendations;
+      this.recommendations$.next(this.recomendations);
     }, () => {
-      this.recomendations =[
+      this.recomendations = [
         {
           "facultyTitle": "Faculty of Economic Engineering and Business",
           "recommendationScore": 66,

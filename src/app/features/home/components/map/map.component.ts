@@ -27,7 +27,7 @@ export class MapComponent  implements OnInit, OnDestroy {
     
     this.facultyApiService.getAllFaculties().subscribe((faculties: Faculty[]) => {
       this.engineService.faculties = faculties;
-      this.createScene();
+      setTimeout(() => this.createScene(), 1000)
     }, () => {
       this.createScene();
     });

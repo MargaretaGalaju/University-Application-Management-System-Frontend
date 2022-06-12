@@ -2,8 +2,11 @@
 
 .engine-wrapper {
   background-color: #D3DBE5;
+  min-height: 100vh;
 }
-
+mat-icon {
+  z-index: 99999;
+}
 .loader {
   position: absolute;
   top: 80px;

@@ -26,6 +26,10 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
   font-family: Quicksand;
 }
 
+.cdk-overlay-container, .cdk-overlay-pane {
+  z-index: 99999999 !important;
+}
+
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;

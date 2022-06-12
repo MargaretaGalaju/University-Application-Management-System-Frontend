@@ -21,10 +21,21 @@
           </mat-tab>
 
           <mat-tab label="Favorite specialties">
-            <div class="d-flex flex-column" *ngIf="favorites">
-              <div class="specialty mb-2" *ngFor="let fav of favorites">
-                - {{ fav.title }}
-              </div>
+            <div class="d-flex flex-column mt-3">
+              <section class="example-section" *ngFor="let faculty of favoriteSpecialties">
+                <span class="example-list-section">
+                    {{faculty.title}}
+                </span>
+      
+                <span class="specialty-title">
+                  <ul>
+                    <li *ngFor="let specialty of faculty.specialties">
+                        {{specialty.title}}
+                        <mat-icon class="ml-3 close" (click)="deleteFromFavorites(specialty.id)">close</mat-icon>
+                    </li>
+                  </ul>
+                </span>
+              </section>
             </div>
           </mat-tab>
 

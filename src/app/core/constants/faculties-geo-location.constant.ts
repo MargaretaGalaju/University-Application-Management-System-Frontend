@@ -308,7 +308,7 @@ export const panoramas = {
         {
           heading: 180,
           description: 'back to entrance',
-          pano: 'first',
+          pano: 'fet_first',
         },
       ],
     },
@@ -484,5 +484,103 @@ export const panoramas = {
     //     },
     //   ],
     // },
+  ],
+  fee: [
+    {
+      imagePath: '/assets/panoramas/fee/1.jpg',
+      pano: 'fee_first', // The ID for this custom this.panorama
+      description: 'FEE First',
+      position: {
+        lat:  47.061621,
+        long: 28.867827,
+      },
+      links: [
+        {
+          heading: 0,
+          description: 'fee first',
+          pano: 'fee',
+        }
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fee/2.jpg',
+      pano: 'fee', // The ID for this custom this.panorama.
+      description: 'Entrance of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.061606,
+        long: 28.867924,
+      },
+      links: [
+        {
+          heading: 120,
+          description: 'fee first corridor',
+          pano: 'fee_3',
+        },
+        {
+          heading: 180,
+          description: 'back to entrance',
+          pano: 'fee_first',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fee/3.jpg',
+      pano: 'fee_3', // The ID for this custom this.panorama.
+      description: 'Corridor 1 of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.061918,
+        long: 28.868000,
+      },
+      links: [
+        {
+          heading: 270,
+          description: 'fee second corridor',
+          pano: 'fee_3_1',
+        },
+        {
+          heading: 180,
+          description: 'back to entrance',
+          pano: 'fee',
+        },
+        {
+          heading: 0,
+          description: 'back to first corridor',
+          pano: 'fee_4',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fee/4.jpg',
+      pano: 'fee_4', // The ID for this custom this.panorama.
+      description: 'Corridor 2 of Faculty of Technical University of Moldova',
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      links: [
+        {
+          heading: 180,
+          description: 'fee third corridor',
+          pano: 'fee_3',
+        },
+      ],
+    },
+    {
+      imagePath: '/assets/panoramas/fee/3_1.jpg',
+      pano: 'fee_3_1', // The ID for this custom this.panorama.
+      description: 'Corridor 2 of Faculty of Technical University of Moldova',
+      centerHeading: 270,
+      position: {
+        lat: 47.062118,
+        long: 28.868110,
+      },
+      links: [
+        {
+          heading: 90,
+          description: 'fee third corridor',
+          pano: 'fee_3',
+        },
+      ],
+    },
   ]
 }

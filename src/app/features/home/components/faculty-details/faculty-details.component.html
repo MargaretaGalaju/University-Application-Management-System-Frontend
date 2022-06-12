@@ -15,7 +15,7 @@
       <span class="font-weight-bold text-center mb-2">Available specialties:</span>
     </div>
 
-    <div [@listAnimationFast]="faculty?.specialties?.length" class="specialty-list d-flex flex-column">
+    <div [@listAnimationFast]="faculty?.specialties?.length" class="specialty-list d-flex flex-column" [ngClass]="{favorites: isAuthentificated()}">
       <div *ngFor="let specialty of faculty.specialties; let index=index" class="specialty d-flex flex-column">
         <div class="w-100 d-flex">
           <mat-icon *ngIf="isAuthentificated()"

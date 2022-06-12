@@ -11,8 +11,8 @@
     <div *ngFor="let faculty of recommendations; let index=index" 
           class="faculty-info" 
           [ngClass]="{ opened: faculty.opened }"
-          (click)="faculty.opened = !faculty.opened">
-      <div class="header">
+          >
+      <div class="header" (click)="faculty.opened = !faculty.opened">
        
         <span class="title"> {{ faculty.facultyTitle }}</span>
         <mat-icon [ngClass]="{ opened: faculty.opened }">keyboard_arrow_down</mat-icon>

@@ -8,7 +8,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Available faculties</mat-label>
     
-    <mat-select (selectionChange)="onFacultyChange($event)" [(value)]="selectedFaculty">
+    <mat-select (selectionChange)="onFacultyChange($event)" [(value)]="selectedFaculty" panelClass="test">
       <mat-option *ngFor="let availableFaculty of availableFaculties" [value]="availableFaculty">
         {{ availableFaculty }}
       </mat-option>

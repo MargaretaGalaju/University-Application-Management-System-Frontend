@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecommendationsDialogComponent } from 'src/app/shared/components/recommendations-dialog/recommendations-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
+import { combineLatest, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-layout',
@@ -14,9 +15,11 @@ import { FacultyApiService } from 'src/app/core/services/faculty-api.service';
 })
 export class ProfileLayoutComponent implements OnInit {
   public user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
- 
+
+  public tasks: any[] = [];
   public profileForm: FormGroup;
   public favorites: any;
+  public favoriteSpecialties;
 
   constructor(
     private readonly userService: UserService,
@@ -31,9 +34,7 @@ export class ProfileLayoutComponent implements OnInit {
       this.initForm(user);
     });
 
-    this.facultyApiService.getAllFavorites().subscribe((favorites) => {
-      this.favorites = favorites;
-    });
+    this.getFavoiritesFaculties();
   }
 
   public initForm(user: User): void {
@@ -53,4 +54,27 @@ export class ProfileLayoutComponent implements OnInit {
     this.dialogService.open(RecommendationsDialogComponent)
   }
 
+  public getFavoiritesFaculties() {
+    combineLatest([
+      this.facultyApiService.getAllFaculties(),
+      this.facultyApiService.getAllFavorites()
+    ])
+    .subscribe(
+      ([faculties, favorites]) => {
+        this.favoriteSpecialties = faculties.map((faculty)=> ({
+          ...faculty,
+          specialties: faculty?.specialties?.filter((specialty) => !!favorites.find(f=> f.id === specialty.id))
+        })).filter(f=> f?.specialties?.length)
+      }
+    );
+  }
+
+  deleteFromFavorites(specialtyId) {
+    this.userService.removeFromFavoriteSpecialties(specialtyId).subscribe(() => {
+      this.favoriteSpecialties =  this.favoriteSpecialties.map((faculty)=> ({
+        ...faculty,
+        specialties: faculty?.specialties?.filter((specialty) => specialty.id !==specialtyId)
+      })).filter(f=> f?.specialties?.length)
+    })
+  }
 }

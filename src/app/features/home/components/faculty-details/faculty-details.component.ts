@@ -47,7 +47,7 @@ export class FacultyDetailsComponent implements OnInit {
 
     combineLatest([
       this.activeFaculty$,
-      this.facultyApiService.getAllFavorites()
+      this.facultyApiService.getAllFavorites(),
     ]).subscribe(([faculty, favorites]) => {
       if (!faculty) {
         return;

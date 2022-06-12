@@ -77,12 +77,14 @@ export class HeaderComponent extends DestroyBase implements OnInit {
     const dialogRef = this.dialog.open(RecommendationsDialogComponent);
     
     dialogRef.afterClosed().pipe(
-      filter(Boolean),
-    ).subscribe(() => {
+      filter((recommendations) => !!recommendations),
+    ).subscribe((recommendations) => {
       if (this.router.url.includes(RouteEnum.recommendations)) {
         window.location.reload();
       }
-      this.router.navigateByUrl(`/${RouteEnum.recommendations}`);
+      this.router.navigateByUrl(`/${RouteEnum.recommendations}`, {state: {
+        recommendations,
+      }});
     });
   }
 
