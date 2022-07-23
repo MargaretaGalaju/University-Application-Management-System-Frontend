@@ -43,7 +43,7 @@ export class RecomendationsComponent {
     this.userService.getUser().subscribe((user) => {
       const extraRecommendations = this.router?.getCurrentNavigation()?.extras?.state?.recommendations as Recommendation[];
       
-      this.recomendations = extraRecommendations || user.recommendations;
+      this.recomendations = user.recommendations;
       this.recommendations$.next(this.recomendations);
     }, () => {
       this.recomendations = [
