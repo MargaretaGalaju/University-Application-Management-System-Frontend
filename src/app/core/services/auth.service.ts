@@ -6,7 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { JWT_TOKEN_NAME } from '../constants/jwt-token-name.constant';
+// import { JWT_TOKEN_NAME } from '../constants/jwt-token-name.constant';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +25,7 @@ export class AuthService {
   }
   
   public isAuthenticated(): boolean {
-    return !!localStorage.getItem(JWT_TOKEN_NAME);
+    return !!localStorage.getItem('JWT_TOKEN_NAME');
   }
   
   public login(email: string, password: string): Observable<any> {
@@ -49,7 +49,7 @@ export class AuthService {
   }
  
   public onSuccessfulLogin(token: string): void {
-    localStorage.setItem(JWT_TOKEN_NAME, token);
+    localStorage.setItem('JWT_TOKEN_NAME', token);
 
     this.setAuthenticationState(true);
 
@@ -75,6 +75,9 @@ export class AuthService {
   }
 
   public logout(): Observable<boolean> {
+    this.removeStaleCredentials();
+    this.setAuthenticationState(false);
+
     return this.http
       .post(`${environment.baseUrl}/auth/logout`, null, {
         headers: this.getHeaders()
@@ -95,11 +98,11 @@ export class AuthService {
   }
 
   public getToken(): string {
-    return localStorage.getItem(JWT_TOKEN_NAME);
+    return localStorage.getItem('JWT_TOKEN_NAME');
   }
 
   public removeStaleCredentials(): void {
-    localStorage.removeItem(JWT_TOKEN_NAME);
+    localStorage.removeItem('JWT_TOKEN_NAME');
   }
 
   public getHeaders(customHeaders?: HttpHeaders): HttpHeaders {

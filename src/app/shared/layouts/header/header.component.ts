@@ -24,21 +24,7 @@ interface NavItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent extends DestroyBase implements OnInit {
-  public navItems: NavItem[] = [
-    {
-      title: 'Home',
-      navigateUrl: RouteEnum.home,
-    },
-    {
-      title: 'Virtual tours',
-      navigateUrl: RouteEnum.virtualTour,
-    },
-    {
-      title: 'Application process',
-      navigateUrl: RouteEnum.applicationProcess,
-      hide: !this.isAuthentificated(),
-    },
-  ];
+  public navItems: NavItem[] = [];
 
   public currentRoute$: BehaviorSubject<RouteEnum> = new BehaviorSubject<RouteEnum>(null);
 
@@ -66,6 +52,8 @@ export class HeaderComponent extends DestroyBase implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.setItems();
+
     this.userService.getUser().subscribe((user) => {
       this.user = user;
       this.cdr.detectChanges()
@@ -73,7 +61,7 @@ export class HeaderComponent extends DestroyBase implements OnInit {
     });
   }
 
-  public openRecommendationsDialog():void {
+  public openRecommendationsDialog(): void {
     const dialogRef = this.dialog.open(RecommendationsDialogComponent);
     
     dialogRef.afterClosed().pipe(
@@ -88,7 +76,7 @@ export class HeaderComponent extends DestroyBase implements OnInit {
     });
   }
 
-  public openApplicationStepper():void {
+  public openApplicationStepper(): void {
     this.router.navigateByUrl(`/${RouteEnum.applicationProcess}`);
   }
 
@@ -96,12 +84,32 @@ export class HeaderComponent extends DestroyBase implements OnInit {
     this.router.navigateByUrl(`/${RouteEnum.auth}/${RouteEnum.login}`);
   }
 
-  public signout() {
+  public signout(): void {
     this.authService.logout().subscribe();
-    this.router.navigateByUrl(`/${RouteEnum.auth}/${RouteEnum.login}`);
+    this.router.navigateByUrl(`/`);
+    this.setItems();
+    this.cdr.detectChanges()
   }
-  
-  public goToProfilePage() {
+
+  public goToProfilePage(): void {
     this.router.navigateByUrl(`/${RouteEnum.profile}`);
+  }
+
+  public setItems(): void {
+    this.navItems = [
+      {
+        title: 'Home',
+        navigateUrl: RouteEnum.home,
+      },
+      {
+        title: 'Virtual tours',
+        navigateUrl: RouteEnum.virtualTour,
+      },
+      {
+        title: 'Application process',
+        navigateUrl: RouteEnum.applicationProcess,
+        hide: !this.isAuthentificated(),
+      },
+    ];
   }
 }

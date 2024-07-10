@@ -1,5 +1,5 @@
 <div class="engine-wrapper">
-  <canvas #rendererCanvas id="renderCanvas"></canvas>
+  <canvas #rendererCanvas id="renderCanvas" [ngClass]="{'cursor-pointer': facultyInfoService.cursor$ | async}"></canvas>
 </div>
 
 <app-faculty-details></app-faculty-details>

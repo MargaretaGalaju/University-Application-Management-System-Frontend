@@ -44,6 +44,8 @@ export class EngineService {
   public elementToChange;
   public isRecommendationsPage: boolean;
 
+  hoveredItems =[];
+
   constructor(
     private readonly ngZone: NgZone,
     private readonly facultyInfoService: FacultyInfoService,
@@ -117,6 +119,26 @@ export class EngineService {
   public onMouseMove( event ) { 
     this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1; 
     this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    if (this.isRecommendationsPage) {
+      return;
+    }
+
+    this.raycaster.setFromCamera( this.mouse, this.camera );
+
+    let intersects = this.raycaster.intersectObjects( this.scene.children , true );
+    
+    for ( let i = 0; i < intersects.length; i++ ) {
+      const intersectedGroup = this.buildings.find((array) => intersects[i].object.parent.uuid === array.uuid);
+      
+      if (intersectedGroup) {
+        if (!this.lastIntersected || this.lastIntersected.userData.id !== intersectedGroup.userData.id) {
+          this.facultyInfoService.cursor.next(true);
+        }
+      } else {
+        this.facultyInfoService.cursor.next(false);
+      }
+    }
   } 
 
   public onMouseDown( event ) { 
